@@ -7,7 +7,7 @@ const addMarkdown = require("add-text-to-markdown");
 const SectionName = "表現の一覧";
 const createExamples = (dictionaries) => {
     return dictionaries.map((dict) => {
-        return `- ${dict.message}` + (dict.url ? `\n  - ${dict.url}` : "")
+        return `- ${dict.message}` + (dict.url ? `\n  - 参考: ${dict.url}` : "")
     }).join("\n");
 };
 

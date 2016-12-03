@@ -5,13 +5,13 @@
 ## 表現の一覧
 
 - "することができる"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
-  - <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
+  - 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
 - "であると言えます"は冗長な表現です。"と言えます"を省き簡潔な表現にすると文章が明瞭になります。
-  - <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
+  - 参考: <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
 - "であると考えている"は冗長な表現です。"と考えている"を省き簡潔な表現にすると文章が明瞭になります。
-  - <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+  - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 - "確認を行わなければ"は冗長な表現です。"確認しなければ"など簡潔な表現にすると文章が明瞭になります。
-  - <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+  - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ## Install
 
