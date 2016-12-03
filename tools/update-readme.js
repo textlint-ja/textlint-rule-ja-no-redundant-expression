@@ -12,7 +12,11 @@ const replaceWithCaptureTokens = (text, tokens) => {
         if (!token._capture) {
             return;
         }
-        resultText = resultText.replace(token._capture, token.basic_form);
+        if (token.basic_form) {
+            resultText = resultText.replace(token._capture, token.basic_form);
+        }else{
+            resultText = resultText.replace(token._capture, "");
+        }
     });
     return resultText;
 };

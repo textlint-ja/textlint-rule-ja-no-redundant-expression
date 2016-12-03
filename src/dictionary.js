@@ -3,9 +3,9 @@
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
-        message: `"することが$1"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"することが$1$2"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
-        expected: "$1",
+        expected: "$1$2",
         tokens: [
             {
                 "surface_form": "する",
@@ -50,7 +50,10 @@ module.exports = [
                 "pos_detail_3": "*",
                 "basic_form": "できる",
                 "_capture": "$1"
-            }
+            },
+            {
+                "_capture": "$2"
+            },
         ]
     },
     {
