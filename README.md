@@ -1,4 +1,4 @@
-# textlint-rule-ja-no-redundant-expression
+# textlint-rule-ja-no-redundant-expression [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
 
 冗長な表現を禁止するtextlintルール
 
