@@ -39,6 +39,12 @@ Via CLI
 
 See [Releases page](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression/releases).
 
+## 参考文献
+
+- [「することができる」は有害と考えられる - Qiita](http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0#comment-850ec4d194748453a39a)
+- [読みやすい文章を書くために心がけたい１０のポイント - クソログ](http://www.sekaihaasobiba.com/entry/2014/10/24/204024)
+- [誰にでも分かるSEのための文章術（6）：読みやすい文章の極意は「修飾語」にあり (2/2) - ＠IT](http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html)
+
 ## Running tests
 
 Install devDependencies and Run `npm test`:
