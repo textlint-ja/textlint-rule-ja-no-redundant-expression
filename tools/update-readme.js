@@ -5,9 +5,20 @@ const path = require("path");
 const dict = require("../src/dictionary");
 const addMarkdown = require("add-text-to-markdown");
 const SectionName = "表現の一覧";
+const replaceWithCaptureTokens = (text, tokens) => {
+    let resultText = text;
+    tokens.forEach((token) => {
+        // _capreturがないのは無視
+        if (!token._capture) {
+            return;
+        }
+        resultText = resultText.replace(token._capture, token.basic_form);
+    });
+    return resultText;
+};
 const createExamples = (dictionaries) => {
     return dictionaries.map((dict) => {
-        return `- ${dict.message}` + (dict.url ? `\n  - 参考: ${dict.url}` : "")
+        return `- ${replaceWithCaptureTokens(dict.message, dict.tokens)}` + (dict.url ? `\n  - 参考: ${dict.url}` : "")
     }).join("\n");
 };
 

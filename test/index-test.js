@@ -14,9 +14,19 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
     invalid: [
         {
             text: "必要なら解析することができます。",
+            output: "必要なら解析できます。",
             errors: [
                 {
-                    message: `"することができる"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `"することができ"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 7
+                }
+            ]
+        },
+        {
+            text: "これは必要であると言えます。",
+            errors: [
+                {
+                    message: `"することができ"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
                     index: 7
                 }
             ]

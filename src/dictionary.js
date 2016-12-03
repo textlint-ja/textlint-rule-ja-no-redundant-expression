@@ -3,8 +3,9 @@
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
-        message: `"することができる"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"することが$1"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
+        expected: "$1",
         tokens: [
             {
                 "surface_form": "する",
@@ -48,10 +49,10 @@ module.exports = [
                 "pos_detail_2": "*",
                 "pos_detail_3": "*",
                 "basic_form": "できる",
+                "_capture": "$1"
             }
         ]
-    }
-    ,
+    },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると言えます)
         message: `"であると言えます"は冗長な表現です。"と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
