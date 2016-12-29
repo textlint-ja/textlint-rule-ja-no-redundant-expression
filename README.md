@@ -1,14 +1,16 @@
-# textlint-rule-ja-no-redundant-expression [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
+# textlint-rule-ja-no-redundant-expression [![Build Status](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/)
 
-冗長な表現を禁止するtextlintルール
+冗長な表現を禁止するtextlintルールです。
+
+冗長な表現とは、その文から省いても意味が通じるような表現を示しています。
 
 ## 表現の一覧
 
 - "することができる"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
-- "であると言えます"は冗長な表現です。"と言えます"を省き簡潔な表現にすると文章が明瞭になります。
+- "であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
-- "であると考えている"は冗長な表現です。"と考えている"を省き簡潔な表現にすると文章が明瞭になります。
+- "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 - "確認を行わなければ"は冗長な表現です。"確認しなければ"など簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
@@ -44,6 +46,10 @@ See [Releases page](https://github.com/textlint-ja/textlint-rule-ja-no-redundant
 - [「することができる」は有害と考えられる - Qiita](http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0#comment-850ec4d194748453a39a)
 - [読みやすい文章を書くために心がけたい１０のポイント - クソログ](http://www.sekaihaasobiba.com/entry/2014/10/24/204024)
 - [誰にでも分かるSEのための文章術（6）：読みやすい文章の極意は「修飾語」にあり (2/2) - ＠IT](http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html)
+
+## 類似ルール
+
+- [textlint-ja/textlint-rule-ja-no-weak-phrase: 弱い表現の利用を禁止するtextlintルール](https://github.com/textlint-ja/textlint-rule-ja-no-weak-phrase "textlint-ja/textlint-rule-ja-no-weak-phrase: 弱い表現の利用を禁止するtextlintルール")
 
 ## Running tests
 

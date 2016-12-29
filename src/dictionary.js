@@ -58,7 +58,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると言えます)
-        message: `"であると言えます"は冗長な表現です。"と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
         tokens: [
             {
@@ -123,7 +123,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると考えている)
-        message: `"であると考えている"は冗長な表現です。"と考えている"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         expected: "である",
         tokens: [

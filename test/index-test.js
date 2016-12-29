@@ -26,7 +26,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは必要であると言えます。",
             errors: [
                 {
-                    message: `"であると言えます"は冗長な表現です。"と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
+                    message: `"であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
                     index: 7
                 }
             ]
@@ -46,7 +46,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                     column: 49
                 },
                 {
-                    message: `"であると考えている"は冗長な表現です。"と考えている"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
                     line: 1,
                     column: 89
                 }
