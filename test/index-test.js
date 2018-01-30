@@ -17,7 +17,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             errors: [
                 {
                     message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
-                    index: 6
+                    index: 5
                 }
             ]
         },
@@ -26,7 +26,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             errors: [
                 {
                     message: `"することが可能です"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
-                    index: 6
+                    index: 5
                 }
             ]
         },
@@ -36,7 +36,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             errors: [
                 {
                     message: `"することができます"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
-                    index: 7
+                    index: 6
                 }
             ]
         },
@@ -45,7 +45,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             errors: [
                 {
                     message: `"であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
-                    index: 7
+                    index: 5
                 }
             ]
         },
