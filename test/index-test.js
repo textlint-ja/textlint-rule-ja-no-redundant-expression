@@ -13,6 +13,24 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
     ],
     invalid: [
         {
+            text: "これは省略することが可能だが、省略しない。",
+            errors: [
+                {
+                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 6
+                }
+            ]
+        },
+        {
+            text: "これは省略することが可能です。",
+            errors: [
+                {
+                    message: `"することが可能です"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 6
+                }
+            ]
+        },
+        {
             text: "必要なら解析することができます。",
             output: "必要なら解析できます。",
             errors: [
