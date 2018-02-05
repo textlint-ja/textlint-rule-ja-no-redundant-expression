@@ -6,7 +6,7 @@ const createMatchAll = require("morpheme-match-all");
 const replaceWithCaptureTokens = (text, tokens, actualTokens) => {
     let resultText = text;
     tokens.forEach((token, index) => {
-        // _capreturがないのは無視
+        // _captureがないのは無視
         if (!token._capture) {
             return;
         }
@@ -34,7 +34,9 @@ const reporter = (context) => {
                     // replace $1
                     const message = replaceWithCaptureTokens(matchResult.dict.message, matchResult.dict.tokens, matchResult.tokens)
                         + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
-                    const expected = replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens);
+                    const expected = matchResult.dict.expected
+                        ? replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens)
+                        : undefined;
                     if (expected) {
                         report(node, new RuleError(message, {
                             index: firstWordIndex,
