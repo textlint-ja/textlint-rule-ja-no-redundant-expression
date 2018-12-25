@@ -16,6 +16,8 @@
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 - "を行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+- "を実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。
+  - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ## Install
 

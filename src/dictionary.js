@@ -282,5 +282,41 @@ module.exports = [
                 "basic_form": "行う",
             }
         ]
+    },
+    {
+        message: `"$1を実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
+        tokens: [
+            {
+                "pos": "名詞",
+                "pos_detail_1": "サ変接続",
+                "_capture": "$1"
+            },
+            {
+                "surface_form": "を",
+                "pos": "助詞",
+                "pos_detail_1": "格助詞",
+                "pos_detail_2": "一般",
+                "pos_detail_3": "*",
+                "conjugated_type": "*",
+                "conjugated_form": "*",
+                "basic_form": "を",
+                "reading": "ヲ",
+                "pronunciation": "ヲ"
+            },
+            {
+                "surface_form": "実行",
+                "pos": "名詞",
+                "pos_detail_1": "サ変接続",
+                "pos_detail_2": "*",
+                "pos_detail_3": "*",
+                "conjugated_type": "*",
+                "conjugated_form": "*",
+                "basic_form": "実行",
+                "reading": "ジッコウ",
+                "pronunciation": "ジッコー"
+            },
+        ]
     }
+
 ];
