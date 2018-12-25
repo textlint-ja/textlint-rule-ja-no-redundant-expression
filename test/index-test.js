@@ -49,6 +49,15 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                 }
             ]
         },
+        {
+            text: "実験を行えば分かります。",
+            errors: [
+                {
+                    message: `"実験を行う"は冗長な表現です。"実験する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    index: 0
+                }
+            ]
+        },
         //http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html
         {
             text: "このコマンドの後には任意の値を設定することができる。このため、設定した値ごとに、システムの動作の確認を行わなければならない。この作業には時間がかかるため、テスト要員の追加が必要であると考えている。",
@@ -59,7 +68,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                     column: 18
                 },
                 {
-                    message: `"確認を行わなければ"は冗長な表現です。"確認しなければ"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `"確認を行う"は冗長な表現です。"確認する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
                     line: 1,
                     column: 49
                 },
