@@ -11,7 +11,7 @@ const replaceWithCaptureTokens = (text, tokens, actualTokens) => {
             return;
         }
         const actualToken = actualTokens[index];
-        resultText = resultText.replace(token._capture, actualToken.surface_form);
+        resultText = resultText.split(token._capture).join(actualToken.surface_form);
     });
     return resultText;
 };
@@ -19,7 +19,7 @@ const reporter = (context) => {
     const {Syntax, RuleError, report, fixer, getSource} = context;
     const matchAll = createMatchAll(dictionaryList);
     return {
-        [Syntax.Str](node){
+        [Syntax.Str](node) {
             const text = getSource(node);
             return tokenize(text).then(currentTokens => {
                 /**
@@ -33,7 +33,7 @@ const reporter = (context) => {
                     const lastWorkIndex = Math.max(lastToken.word_position - 1, 0);
                     // replace $1
                     const message = replaceWithCaptureTokens(matchResult.dict.message, matchResult.dict.tokens, matchResult.tokens)
-                        + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
+                    + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
                     const expected = matchResult.dict.expected
                         ? replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens)
                         : undefined;

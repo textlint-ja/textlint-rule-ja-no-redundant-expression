@@ -253,20 +253,13 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=動作の(確認を行わなければ)ならない
-        message: `"確認を行わなければ"は冗長な表現です。"確認しなければ"など簡潔な表現にすると文章が明瞭になります。`,
+        message: `"$1を行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
-                "surface_form": "確認",
                 "pos": "名詞",
                 "pos_detail_1": "サ変接続",
-                "pos_detail_2": "*",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "確認",
-                "reading": "カクニン",
-                "pronunciation": "カクニン"
+                "_capture": "$1"
             },
             {
                 "surface_form": "を",
@@ -281,41 +274,49 @@ module.exports = [
                 "pronunciation": "ヲ"
             },
             {
-                "surface_form": "行わ",
                 "pos": "動詞",
                 "pos_detail_1": "自立",
                 "pos_detail_2": "*",
                 "pos_detail_3": "*",
                 "conjugated_type": "五段・ワ行促音便",
-                "conjugated_form": "未然形",
                 "basic_form": "行う",
-                "reading": "オコナワ",
-                "pronunciation": "オコナワ"
+            }
+        ]
+    },
+    {
+        message: `"$1を実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
+        tokens: [
+            {
+                "pos": "名詞",
+                "pos_detail_1": "サ変接続",
+                "_capture": "$1"
             },
             {
-                "surface_form": "なけれ",
-                "pos": "助動詞",
-                "pos_detail_1": "*",
-                "pos_detail_2": "*",
-                "pos_detail_3": "*",
-                "conjugated_type": "特殊・ナイ",
-                "conjugated_form": "仮定形",
-                "basic_form": "ない",
-                "reading": "ナケレ",
-                "pronunciation": "ナケレ"
-            },
-            {
-                "surface_form": "ば",
+                "surface_form": "を",
                 "pos": "助詞",
-                "pos_detail_1": "接続助詞",
+                "pos_detail_1": "格助詞",
+                "pos_detail_2": "一般",
+                "pos_detail_3": "*",
+                "conjugated_type": "*",
+                "conjugated_form": "*",
+                "basic_form": "を",
+                "reading": "ヲ",
+                "pronunciation": "ヲ"
+            },
+            {
+                "surface_form": "実行",
+                "pos": "名詞",
+                "pos_detail_1": "サ変接続",
                 "pos_detail_2": "*",
                 "pos_detail_3": "*",
                 "conjugated_type": "*",
                 "conjugated_form": "*",
-                "basic_form": "ば",
-                "reading": "バ",
-                "pronunciation": "バ"
-            }
+                "basic_form": "実行",
+                "reading": "ジッコウ",
+                "pronunciation": "ジッコー"
+            },
         ]
     }
+
 ];
