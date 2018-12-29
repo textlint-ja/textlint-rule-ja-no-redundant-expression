@@ -31,6 +31,7 @@ module.exports = [
             }, {
                 "pos": "助詞",
                 "_capture": "$3",
+                "_readme": "[助詞]",
             }, {
                 "surface_form": "可能",
                 "pos": "名詞",
@@ -89,6 +90,7 @@ module.exports = [
                     }
                     return "";
                 },
+                "_readme": "[助詞]",
             },
             {
                 "pos": "動詞",

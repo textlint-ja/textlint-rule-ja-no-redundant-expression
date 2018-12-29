@@ -12,17 +12,20 @@ const replaceWithCaptureTokens = (text, tokens) => {
         if (!token._capture) {
             return;
         }
-        if (token.basic_form) {
-            resultText = resultText.replace(token._capture, token.basic_form);
-        }else{
-            resultText = resultText.replace(token._capture, "");
+        if (token._readme) {
+            resultText = resultText.split(token._capture).join(token._readme);
+        } else if (token.basic_form) {
+            resultText = resultText.split(token._capture).join(token.basic_form);
+        } else {
+            resultText = resultText.split(token._capture).join("");
         }
     });
     return resultText;
 };
 const createExamples = (dictionaries) => {
     return dictionaries.map((dict) => {
-        return `- ${replaceWithCaptureTokens(dict.message, dict.tokens)}` + (dict.url ? `\n  - 参考: ${dict.url}` : "")
+        return `- ${replaceWithCaptureTokens(dict.message, dict.tokens)}` + (dict.url ? `
+  - 参考: ${dict.url}` : "")
     }).join("\n");
 };
 
