@@ -3,15 +3,22 @@
 const tokenize = require("kuromojin").tokenize;
 const dictionaryList = require("./dictionary");
 const createMatchAll = require("morpheme-match-all");
-const replaceWithCaptureTokens = (text, tokens, actualTokens) => {
+const replaceWithCaptureTokens = (text, tokens, actualTokens, for_expected) => {
     let resultText = text;
     tokens.forEach((token, index) => {
         // _captureがないのは無視
         if (!token._capture) {
             return;
         }
-        const actualToken = actualTokens[index];
-        resultText = resultText.split(token._capture).join(actualToken.surface_form);
+        let to;
+        if (for_expected && token["_capture_to_expected"]) {
+            to = token["_capture_to_expected"](actualTokens[index]);
+        } else if (!for_expected && token["_capture_to_message"]) {
+            to = token["_capture_to_message"](actualTokens[index]);
+        } else {
+            to = actualTokens[index].surface_form;
+        }
+        resultText = resultText.split(token._capture).join(to);
     });
     return resultText;
 };
@@ -32,10 +39,10 @@ const reporter = (context) => {
                     const firstWordIndex = Math.max(firstToken.word_position - 1, 0);
                     const lastWorkIndex = Math.max(lastToken.word_position - 1, 0);
                     // replace $1
-                    const message = replaceWithCaptureTokens(matchResult.dict.message, matchResult.dict.tokens, matchResult.tokens)
+                    const message = replaceWithCaptureTokens(matchResult.dict.message, matchResult.dict.tokens, matchResult.tokens, false)
                     + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
                     const expected = matchResult.dict.expected
-                        ? replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens)
+                        ? replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens, true)
                         : undefined;
                     if (expected) {
                         report(node, new RuleError(message, {

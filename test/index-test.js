@@ -31,12 +31,60 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "これは省略することも可能だ。",
+            errors: [
+                {
+                    message: `"することも可能だ"は冗長な表現です。"することも可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 5
+                }
+            ]
+        },
+        {
+            text: "これは省略することは可能だ。",
+            errors: [
+                {
+                    message: `"することは可能だ"は冗長な表現です。"することは可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 5
+                }
+            ]
+        },
+        {
             text: "必要なら解析することができます。",
             output: "必要なら解析できます。",
             errors: [
                 {
                     message: `"することができます"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
                     index: 6
+                }
+            ]
+        },
+        {
+            text: "解析することもできますよ。",
+            output: "解析もできますよ。",
+            errors: [
+                {
+                    message: `"することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 2
+                }
+            ]
+        },
+        {
+            text: "解析することはできますよ。",
+            output: "解析はできますよ。",
+            errors: [
+                {
+                    message: `"することはできます"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 2
+                }
+            ]
+        },
+        {
+            text: "解析することをできますよ。",
+            output: "解析できますよ。",
+            errors: [
+                {
+                    message: `"することをできます"は冗長な表現です。"することを"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 2
                 }
             ]
         },
