@@ -3,7 +3,7 @@
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
-        message: `"すること$3可能$1"は冗長な表現です。"すること$3可能"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$2$3可能$1"は冗長な表現です。"する$2$3可能"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
             {
@@ -18,16 +18,10 @@ module.exports = [
                 "reading": "スル",
                 "pronunciation": "スル"
             }, {
-                "surface_form": "こと",
                 "pos": "名詞",
-                "pos_detail_1": "非自立",
-                "pos_detail_2": "一般",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "こと",
                 "reading": "コト",
-                "pronunciation": "コト"
+                "_capture": "$2",
+                "_readme": "こと",
             }, {
                 "pos": "助詞",
                 "_capture": "$3",
@@ -51,7 +45,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
-        message: `"すること$3$1$2"は冗長な表現です。"すること$3"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$4$3$1$2"は冗長な表現です。"する$4$3"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         expected: "$3$1$2",
         tokens: [
@@ -68,16 +62,10 @@ module.exports = [
                 "pronunciation": "スル"
             },
             {
-                "surface_form": "こと",
                 "pos": "名詞",
-                "pos_detail_1": "非自立",
-                "pos_detail_2": "一般",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "こと",
                 "reading": "コト",
-                "pronunciation": "コト"
+                "_capture": "$4",
+                "_readme": "こと",
             },
             {
                 "pos": "助詞",
