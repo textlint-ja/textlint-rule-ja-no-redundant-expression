@@ -118,6 +118,15 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "これは必要で有るといえます。",
+            errors: [
+                {
+                    message: `"で有るといえます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
+                    index: 5
+                }
+            ]
+        },
+        {
             text: "実験を行えば分かります。",
             errors: [
                 {

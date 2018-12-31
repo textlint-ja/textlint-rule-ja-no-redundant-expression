@@ -95,7 +95,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると言えます)
-        message: `"であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"で$1と$2ます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
         tokens: [
             {
@@ -111,16 +111,9 @@ module.exports = [
                 "pronunciation": "デ"
             },
             {
-                "surface_form": "ある",
-                "pos": "助動詞",
-                "pos_detail_1": "*",
-                "pos_detail_2": "*",
-                "pos_detail_3": "*",
-                "conjugated_type": "五段・ラ行アル",
-                "conjugated_form": "基本形",
-                "basic_form": "ある",
                 "reading": "アル",
-                "pronunciation": "アル"
+                "_capture": "$1",
+                "_readme": "ある",
             },
             {
                 "surface_form": "と",
@@ -142,7 +135,9 @@ module.exports = [
                 "conjugated_type": "一段",
                 "conjugated_form": "連用形",
                 "reading": "イエ",
-                "pronunciation": "イエ"
+                "pronunciation": "イエ",
+                "_capture": "$2",
+                "_readme": "言え",
             },
             {
                 "surface_form": "ます",
@@ -177,16 +172,9 @@ module.exports = [
                 "pronunciation": "デ"
             },
             {
-                "surface_form": "ある",
-                "pos": "助動詞",
-                "pos_detail_1": "*",
-                "pos_detail_2": "*",
-                "pos_detail_3": "*",
-                "conjugated_type": "五段・ラ行アル",
-                "conjugated_form": "基本形",
-                "basic_form": "ある",
                 "reading": "アル",
-                "pronunciation": "アル"
+                "_capture": "$1",
+                "_readme": "ある",
             },
             {
                 "surface_form": "と",
