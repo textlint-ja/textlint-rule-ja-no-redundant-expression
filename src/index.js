@@ -3,18 +3,38 @@
 const tokenize = require("kuromojin").tokenize;
 const dictionaryList = require("./dictionary");
 const createMatchAll = require("morpheme-match-all");
-const replaceWithCaptureTokens = (text, tokens, actualTokens) => {
+
+const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
+    // _captureがないのは無視
+    if (!matcherToken._capture) {
+        return null;
+    }
+    if (matcherToken[specialTo]) {
+        return matcherToken[specialTo](actualToken);
+    }
+    return actualToken.surface_form;
+};
+const createExpected = ({text, matcherTokens, actualTokens}) => {
     let resultText = text;
-    tokens.forEach((token, index) => {
-        // _captureがないのは無視
-        if (!token._capture) {
-            return;
+    matcherTokens.forEach((token, index) => {
+        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_expected");
+        if (to !== null) {
+            resultText = resultText.split(token._capture).join(to);
         }
-        const actualToken = actualTokens[index];
-        resultText = resultText.split(token._capture).join(actualToken.surface_form);
     });
     return resultText;
 };
+const createMessage = ({text, matcherTokens, actualTokens}) => {
+    let resultText = text;
+    matcherTokens.forEach((token, index) => {
+        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_message");
+        if (to !== null) {
+            resultText = resultText.split(token._capture).join(to);
+        }
+    });
+    return resultText;
+};
+
 const reporter = (context) => {
     const {Syntax, RuleError, report, fixer, getSource} = context;
     const matchAll = createMatchAll(dictionaryList);
@@ -32,10 +52,18 @@ const reporter = (context) => {
                     const firstWordIndex = Math.max(firstToken.word_position - 1, 0);
                     const lastWorkIndex = Math.max(lastToken.word_position - 1, 0);
                     // replace $1
-                    const message = replaceWithCaptureTokens(matchResult.dict.message, matchResult.dict.tokens, matchResult.tokens)
+                    const message = createMessage({
+                        text: matchResult.dict.message,
+                        matcherTokens: matchResult.dict.tokens,
+                        actualTokens: matchResult.tokens
+                    })
                     + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
                     const expected = matchResult.dict.expected
-                        ? replaceWithCaptureTokens(matchResult.dict.expected, matchResult.dict.tokens, matchResult.tokens)
+                        ? createExpected({
+                            text: matchResult.dict.expected,
+                            matcherTokens: matchResult.dict.tokens,
+                            actualTokens: matchResult.tokens
+                        })
                         : undefined;
                     if (expected) {
                         report(node, new RuleError(message, {

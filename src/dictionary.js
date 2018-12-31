@@ -3,7 +3,7 @@
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
-        message: `"することが可能$1"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"すること$3可能$1"は冗長な表現です。"すること$3可能"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
             {
@@ -29,16 +29,9 @@ module.exports = [
                 "reading": "コト",
                 "pronunciation": "コト"
             }, {
-                "surface_form": "が",
                 "pos": "助詞",
-                "pos_detail_1": "格助詞",
-                "pos_detail_2": "一般",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "が",
-                "reading": "ガ",
-                "pronunciation": "ガ"
+                "_capture": "$3",
+                "_readme": "[助詞]",
             }, {
                 "surface_form": "可能",
                 "pos": "名詞",
@@ -58,9 +51,9 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
-        message: `"することが$1$2"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"すること$3$1$2"は冗長な表現です。"すること$3"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
-        expected: "$1$2",
+        expected: "$3$1$2",
         tokens: [
             {
                 "surface_form": "する",
@@ -87,16 +80,17 @@ module.exports = [
                 "pronunciation": "コト"
             },
             {
-                "surface_form": "が",
                 "pos": "助詞",
-                "pos_detail_1": "格助詞",
-                "pos_detail_2": "一般",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "が",
-                "reading": "ガ",
-                "pronunciation": "ガ"
+                "_capture": "$3",
+                "_capture_to_expected": function(actualToken) {
+                    if (actualToken.surface_form === "も") {
+                        return "も"
+                    } else if (actualToken.surface_form === "は") {
+                        return "は"
+                    }
+                    return "";
+                },
+                "_readme": "[助詞]",
             },
             {
                 "pos": "動詞",
