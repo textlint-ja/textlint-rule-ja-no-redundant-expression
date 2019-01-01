@@ -14,10 +14,15 @@ const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
     }
     return actualToken.surface_form;
 };
-const createExpected = ({text, matcherTokens, actualTokens}) => {
+const createExpected = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
+    let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_expected");
+        let to = "";
+        if (!skipped[index]) {
+            to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
+            ++actualTokenIndex ;
+        }
         if (to !== null) {
             resultText = resultText.split(token._capture).join(to);
         }
@@ -68,6 +73,7 @@ const reporter = (context) => {
                         ? createExpected({
                             text: matchResult.dict.expected,
                             matcherTokens: matchResult.dict.tokens,
+                            skipped: matchResult.skipped,
                             actualTokens: matchResult.tokens
                         })
                         : undefined;

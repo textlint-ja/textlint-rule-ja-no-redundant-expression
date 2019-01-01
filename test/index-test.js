@@ -77,6 +77,26 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "必要なら解析することが、できます。",
+            output: "必要なら解析できます。",
+            errors: [
+                {
+                    message: `"することが、できます"は冗長な表現です。"することが、"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 6
+                }
+            ]
+        },
+        {
+            text: "必要なら解析することが,できます。",
+            output: "必要なら解析できます。",
+            errors: [
+                {
+                    message: `"することが,できます"は冗長な表現です。"することが,"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 6
+                }
+            ]
+        },
+        {
             text: "解析することもできますよ。",
             output: "解析もできますよ。",
             errors: [

@@ -49,7 +49,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
-        message: `"する$4$3$1$2"は冗長な表現です。"する$4$3"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$4$3$5$1$2"は冗長な表現です。"する$4$3$5"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         expected: "$3$1$2",
         tokens: [
@@ -83,6 +83,11 @@ module.exports = [
                     return "";
                 },
                 "_readme": "[助詞]",
+            },
+            {
+                "surface_form": ["、", "､", "，", ","],
+                "_skippable": true,
+                "_capture": "$5",
             },
             {
                 "pos": "動詞",
