@@ -106,7 +106,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると言えます)
-        message: `"で$1と$2ます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"で$1$6と$5$2ます"は冗長な表現です。"である$6" または "と$5言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
         tokens: [
             {
@@ -127,16 +127,18 @@ module.exports = [
                 "_readme": "ある",
             },
             {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$6",
+            },
+            {
                 "surface_form": "と",
                 "pos": "助詞",
-                "pos_detail_1": "格助詞",
-                "pos_detail_2": "引用",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "と",
-                "reading": "ト",
-                "pronunciation": "ト"
+            },
+            {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$5",
             },
             {
                 "pos": "動詞",
@@ -166,7 +168,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると考えている)
-        message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"である$7と$5考えて$6いる"は冗長な表現です。"である$7" または "と$5考えて$6いる"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         expected: "である",
         tokens: [
@@ -188,16 +190,18 @@ module.exports = [
                 "_readme": "ある",
             },
             {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$7",
+            },
+            {
                 "surface_form": "と",
                 "pos": "助詞",
-                "pos_detail_1": "格助詞",
-                "pos_detail_2": "引用",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "と",
-                "reading": "ト",
-                "pronunciation": "ト"
+            },
+            {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$5",
             },
             {
                 "surface_form": "考え",
@@ -224,6 +228,11 @@ module.exports = [
                 "pronunciation": "テ"
             },
             {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$6",
+            },
+            {
                 "pos": "動詞",
                 "pos_detail_1": "非自立",
                 "pos_detail_2": "*",
@@ -234,7 +243,7 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=動作の(確認を行わなければ)ならない
-        message: `"$1を行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        message: `"$1を$5行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
@@ -253,6 +262,11 @@ module.exports = [
                 "basic_form": "を",
                 "reading": "ヲ",
                 "pronunciation": "ヲ"
+            },
+            {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$5",
             },
             {
                 "pos": "動詞",
@@ -265,7 +279,7 @@ module.exports = [
         ]
     },
     {
-        message: `"$1を実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        message: `"$1を$5実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
@@ -284,6 +298,11 @@ module.exports = [
                 "basic_form": "を",
                 "reading": "ヲ",
                 "pronunciation": "ヲ"
+            },
+            {
+                "surface_form": punctuations,
+                "_skippable": true,
+                "_capture": "$5",
             },
             {
                 "surface_form": "実行",
