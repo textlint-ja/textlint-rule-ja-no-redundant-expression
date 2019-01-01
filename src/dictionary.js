@@ -1,5 +1,7 @@
 // MIT © 2016 azu
 "use strict";
+const punctuations = ["、", "､", "，", ","];
+
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
@@ -27,7 +29,7 @@ module.exports = [
                 "_capture": "$3",
                 "_readme": "[助詞]",
             }, {
-                "pos": "記号",
+                "surface_form": punctuations,
                 "_skippable": true,
                 "_capture": "$4",
             }, {
@@ -85,7 +87,7 @@ module.exports = [
                 "_readme": "[助詞]",
             },
             {
-                "surface_form": ["、", "､", "，", ","],
+                "surface_form": punctuations,
                 "_skippable": true,
                 "_capture": "$5",
             },
