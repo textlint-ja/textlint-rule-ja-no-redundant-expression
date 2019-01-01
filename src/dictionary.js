@@ -3,7 +3,7 @@
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
-        message: `"する$2$3可能$1"は冗長な表現です。"する$2$3可能"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$2$3$4可能$1"は冗長な表現です。"する$2$3$4可能"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
             {
@@ -26,6 +26,10 @@ module.exports = [
                 "pos": "助詞",
                 "_capture": "$3",
                 "_readme": "[助詞]",
+            }, {
+                "pos": "記号",
+                "_skippable": true,
+                "_capture": "$4",
             }, {
                 "surface_form": "可能",
                 "pos": "名詞",

@@ -49,6 +49,15 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "これは省略することは，可能だ。",
+            errors: [
+                {
+                    message: `"することは，可能だ"は冗長な表現です。"することは，可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 5
+                }
+            ]
+        },
+        {
             text: "これは省略することは可能だ。",
             errors: [
                 {

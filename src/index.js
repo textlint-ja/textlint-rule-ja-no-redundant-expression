@@ -24,10 +24,15 @@ const createExpected = ({text, matcherTokens, actualTokens}) => {
     });
     return resultText;
 };
-const createMessage = ({text, matcherTokens, actualTokens}) => {
+const createMessage = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
+    let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_message");
+        let to = "";
+        if (!skipped[index]) {
+            to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
+            ++actualTokenIndex ;
+        }
         if (to !== null) {
             resultText = resultText.split(token._capture).join(to);
         }
@@ -55,6 +60,7 @@ const reporter = (context) => {
                     const message = createMessage({
                         text: matchResult.dict.message,
                         matcherTokens: matchResult.dict.tokens,
+                        skipped: matchResult.skipped,
                         actualTokens: matchResult.tokens
                     })
                     + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
