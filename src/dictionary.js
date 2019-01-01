@@ -5,7 +5,7 @@ const punctuations = ["、", "､", "，", ","];
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
-        message: `"する$2$3$4可能$1"は冗長な表現です。"する$2$3$4可能"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$2$3$4$5$1"は冗長な表現です。"する$2$3$4$5"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
             {
@@ -33,16 +33,9 @@ module.exports = [
                 "_skippable": true,
                 "_capture": "$4",
             }, {
-                "surface_form": "可能",
-                "pos": "名詞",
-                "pos_detail_1": "形容動詞語幹",
-                "pos_detail_2": "*",
-                "pos_detail_3": "*",
-                "conjugated_type": "*",
-                "conjugated_form": "*",
-                "basic_form": "可能",
-                "reading": "カノウ",
-                "pronunciation": "カノー"
+                "basic_form": ["可", "可能", "不可能", "不能", "不可"],
+                "_capture": "$5",
+                "_readme": "(不)可能",
             }, {
                 "pos": "助動詞",
                 "_capture": "$1"
