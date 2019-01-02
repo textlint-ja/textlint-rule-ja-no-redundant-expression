@@ -4,11 +4,11 @@ const tokenize = require("kuromojin").tokenize;
 const dictionaryList = require("./dictionary");
 const createMatchAll = require("morpheme-match-all");
 
+const replaceAll = (text, from, to) => {
+    return text.split(from).join(to);
+}
+
 const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
-    // _captureがないのは無視
-    if (!matcherToken._capture) {
-        return null;
-    }
     if (matcherToken[specialTo]) {
         return matcherToken[specialTo](actualToken);
     }
@@ -19,12 +19,12 @@ const createExpected = ({text, matcherTokens, skipped, actualTokens}) => {
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
         if (skipped[index]) {
-            resultText = resultText.split(token._capture).join("");
+            resultText = replaceAll(resultText, token._capture, "");
             return;
         }
-        const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
-        if (to !== null) {
-            resultText = resultText.split(token._capture).join(to);
+        if (token._capture) {
+            const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
+            resultText = replaceAll(resultText, token._capture, to);
         }
         ++actualTokenIndex ;
     });
@@ -35,13 +35,13 @@ const createMessage = ({text, matcherTokens, skipped, actualTokens}) => {
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
         if (skipped[index]) {
-            resultText = resultText.split(token._capture).join("");
+            resultText = replaceAll(resultText, token._capture, "");
             return;
         }
 
-        const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
-        if (to !== null) {
-            resultText = resultText.split(token._capture).join(to);
+        if (token._capture) {
+            const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
+            resultText = replaceAll(resultText, token._capture, to);
         }
         ++actualTokenIndex ;
     });
