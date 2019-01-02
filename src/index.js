@@ -18,14 +18,15 @@ const createExpected = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        let to = "";
-        if (!skipped[index]) {
-            to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
-            ++actualTokenIndex ;
+        if (skipped[index]) {
+            resultText = resultText.split(token._capture).join("");
+            return;
         }
+        const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
         if (to !== null) {
             resultText = resultText.split(token._capture).join(to);
         }
+        ++actualTokenIndex ;
     });
     return resultText;
 };
@@ -33,14 +34,16 @@ const createMessage = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        let to = "";
-        if (!skipped[index]) {
-            to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
-            ++actualTokenIndex ;
+        if (skipped[index]) {
+            resultText = resultText.split(token._capture).join("");
+            return;
         }
+
+        const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
         if (to !== null) {
             resultText = resultText.split(token._capture).join(to);
         }
+        ++actualTokenIndex ;
     });
     return resultText;
 };
