@@ -4,33 +4,46 @@ const tokenize = require("kuromojin").tokenize;
 const dictionaryList = require("./dictionary");
 const createMatchAll = require("morpheme-match-all");
 
+const replaceAll = (text, from, to) => {
+    return text.split(from).join(to);
+}
+
 const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
-    // _captureがないのは無視
-    if (!matcherToken._capture) {
-        return null;
-    }
     if (matcherToken[specialTo]) {
         return matcherToken[specialTo](actualToken);
     }
     return actualToken.surface_form;
 };
-const createExpected = ({text, matcherTokens, actualTokens}) => {
+const createExpected = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
+    let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_expected");
-        if (to !== null) {
-            resultText = resultText.split(token._capture).join(to);
+        if (skipped[index]) {
+            resultText = replaceAll(resultText, token._capture, "");
+            return;
         }
+        if (token._capture) {
+            const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
+            resultText = replaceAll(resultText, token._capture, to);
+        }
+        ++actualTokenIndex ;
     });
     return resultText;
 };
-const createMessage = ({text, matcherTokens, actualTokens}) => {
+const createMessage = ({text, matcherTokens, skipped, actualTokens}) => {
     let resultText = text;
+    let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
-        const to = replaceTokenWith(token, actualTokens[index], "_capture_to_message");
-        if (to !== null) {
-            resultText = resultText.split(token._capture).join(to);
+        if (skipped[index]) {
+            resultText = replaceAll(resultText, token._capture, "");
+            return;
         }
+
+        if (token._capture) {
+            const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_message");
+            resultText = replaceAll(resultText, token._capture, to);
+        }
+        ++actualTokenIndex ;
     });
     return resultText;
 };
@@ -55,6 +68,7 @@ const reporter = (context) => {
                     const message = createMessage({
                         text: matchResult.dict.message,
                         matcherTokens: matchResult.dict.tokens,
+                        skipped: matchResult.skipped,
                         actualTokens: matchResult.tokens
                     })
                     + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
@@ -62,6 +76,7 @@ const reporter = (context) => {
                         ? createExpected({
                             text: matchResult.dict.expected,
                             matcherTokens: matchResult.dict.tokens,
+                            skipped: matchResult.skipped,
                             actualTokens: matchResult.tokens
                         })
                         : undefined;
