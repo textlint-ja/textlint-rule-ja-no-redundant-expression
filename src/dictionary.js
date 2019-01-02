@@ -27,7 +27,7 @@ module.exports = [
             }, {
                 "pos": "助詞",
                 "_capture": "$3",
-                "_readme": "[助詞]",
+                "_readme": "\\[助詞]",
             }, {
                 "surface_form": punctuations,
                 "_skippable": true,
@@ -77,7 +77,7 @@ module.exports = [
                     }
                     return "";
                 },
-                "_readme": "[助詞]",
+                "_readme": "\\[助詞]",
             },
             {
                 "surface_form": punctuations,
