@@ -6,17 +6,17 @@
 
 ## 表現の一覧
 
-- "すること\[助詞](不)可能"は冗長な表現です。"すること\[助詞](不)可能"を省き簡潔な表現にすると文章が明瞭になります。
+- 【dict1】 "すること\[助詞](不)可能"は冗長な表現です。"すること\[助詞](不)可能"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
-- "すること\[助詞]できる"は冗長な表現です。"すること\[助詞]"を省き簡潔な表現にすると文章が明瞭になります。
+- 【dict2】 "すること\[助詞]できる"は冗長な表現です。"すること\[助詞]"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
-- "であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
+- 【dict3】 "であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
-- "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
+- 【dict4】 "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
-- "を行う"は冗長な表現です。"する"など簡潔な表現にすると文章が明瞭になります。
+- 【dict5】 "\[名詞]を行う"は冗長な表現です。"\[名詞]する"など簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
-- "を実行"は冗長な表現です。"する"など簡潔な表現にすると文章が明瞭になります。
+- 【dict6】 "\[名詞]を実行"は冗長な表現です。"\[名詞]する"など簡潔な表現にすると文章が明瞭になります。
   - 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ## Install
@@ -44,9 +44,37 @@ Via CLI
 ## Options
 
 - `allowNodeTypes`: `string[]`
-    - 無視したいNode typeを配列で指定
-    - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
-    - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef"]`を指定し、引用やリンクのテキストは無視する
+  - 無視したいNode typeを配列で指定
+  - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
+  - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef"]`を指定し、引用やリンクのテキストは無視する
+- `dictOptions`: `object`
+  - それぞれの`dict`に対するオプションを指定する
+  - プロパティに`dict`の【dict[id]】を書き、値には次の辞書オプションを指定する
+- 辞書オプション: `object`
+  - `disbled`: `boolean`
+    - `true`を指定するdictを無効化
+  - `allows`: `string[]`
+    - エラーを無視したいパターンを[正規表現ライクな文字列](https://github.com/textlint/regexp-string-matcher)で指定
+
+例) `rule1`は無効化、`rule5`で"アプリケーション"から始まる場合は辞書にマッチしてもエラーにしない。
+
+```json5
+{
+    "rules": {
+        "ja-no-redundant-expression": {
+            "dictOptions": {
+                "rule1": {
+                     "disabled": true
+                },
+                "dict5": {
+                    // "処理を行う" を許可する
+                    allows: ["/^処理/"]
+                }
+            }
+        }
+    }
+}
+```
 
 ## Changelog
 
