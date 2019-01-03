@@ -8,7 +8,7 @@ const SectionName = "表現の一覧";
 const replaceWithCaptureTokens = (text, tokens) => {
     let resultText = text;
     tokens.forEach(token => {
-        // _capreturがないのは無視
+        // _captureがないのは無視
         if (!token._capture) {
             return;
         }
