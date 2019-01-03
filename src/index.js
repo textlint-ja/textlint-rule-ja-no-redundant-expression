@@ -8,6 +8,13 @@ const tokenize = require("kuromojin").tokenize;
 const dictionaryList = require("./dictionary");
 const createMatchAll = require("morpheme-match-all");
 
+/**
+ * textの中身をすべて置換する
+ * @param {string} text
+ * @param {string|undefined} from
+ * @param {string} to
+ * @returns {string}
+ */
 const replaceAll = (text, from, to) => {
     return text.split(from).join(to);
 };
