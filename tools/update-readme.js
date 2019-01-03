@@ -7,8 +7,8 @@ const addMarkdown = require("add-text-to-markdown");
 const SectionName = "表現の一覧";
 const replaceWithCaptureTokens = (text, tokens) => {
     let resultText = text;
-    tokens.forEach((token) => {
-        // _capreturがないのは無視
+    tokens.forEach(token => {
+        // _captureがないのは無視
         if (!token._capture) {
             return;
         }
@@ -22,11 +22,18 @@ const replaceWithCaptureTokens = (text, tokens) => {
     });
     return resultText;
 };
-const createExamples = (dictionaries) => {
-    return dictionaries.map((dict) => {
-        return `- ${replaceWithCaptureTokens(dict.message, dict.tokens)}` + (dict.url ? `
-  - 参考: ${dict.url}` : "")
-    }).join("\n");
+const createExamples = dictionaries => {
+    return dictionaries
+        .map(dict => {
+            return (
+                `- ${replaceWithCaptureTokens(dict.message, dict.tokens)}` +
+                (dict.url
+                    ? `
+  - 参考: ${dict.url}`
+                    : "")
+            );
+        })
+        .join("\n");
 };
 
 const README_PATH = path.join(__dirname, "..", "README.md");
