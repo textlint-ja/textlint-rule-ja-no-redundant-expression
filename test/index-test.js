@@ -197,6 +197,16 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "これは大切であると考えています",
+            output: `これは大切である`,
+            errors: [
+                {
+                    message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    index: 5
+                }
+            ]
+        },
+        {
             text: "これは必要で有るといえます。",
             errors: [
                 {

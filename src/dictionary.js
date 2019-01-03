@@ -236,6 +236,16 @@ module.exports = [
                 pos_detail_2: "*",
                 pos_detail_3: "*",
                 basic_form: "いる"
+            },
+            {
+                "surface_form": "ます",
+                "pos": "助動詞",
+                "conjugated_type": "特殊・マス",
+                "conjugated_form": "基本形",
+                "basic_form": "ます",
+                "reading": "マス",
+                "pronunciation": "マス",
+                _skippable: true
             }
         ]
     },
