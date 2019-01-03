@@ -41,6 +41,13 @@ Via CLI
 
     textlint --rule ja-no-redundant-expression README.md
 
+## Options
+
+- `allowNodeTypes`: `string[]`
+    - 無視したいNode typeを配列で指定
+    - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
+    - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef"]`を指定し、引用やリンクのテキストは無視する
+
 ## Changelog
 
 See [Releases page](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression/releases).

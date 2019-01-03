@@ -55,10 +55,10 @@ const reporter = (context, options = {}) => {
     const { Syntax, RuleError, fixer } = context;
     const DefaultOptions = {
         // https://textlint.github.io/docs/txtnode.html#type
-        skipNodeTypes: [Syntax.BlockQuote, Syntax.Link, Syntax.ReferenceDef]
+        allowNodeTypes: [Syntax.BlockQuote, Syntax.Link, Syntax.ReferenceDef]
     };
     const matchAll = createMatchAll(dictionaryList);
-    const skipNodeTypes = options.skipNodeTypes || DefaultOptions.skipNodeTypes;
+    const skipNodeTypes = options.allowNodeTypes || DefaultOptions.allowNodeTypes;
     return wrapReportHandler(
         context,
         {

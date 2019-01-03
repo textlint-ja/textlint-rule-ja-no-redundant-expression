@@ -24,7 +24,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "> これは省略することが可能だが、省略しない。",
             options: {
                 // すべてをチェックする
-                skipNodeTypes: []
+                allowNodeTypes: []
             },
             errors: [
                 {
