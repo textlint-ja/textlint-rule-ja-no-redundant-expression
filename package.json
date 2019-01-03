@@ -40,7 +40,8 @@
     "kuromojin": "^1.3.2",
     "morpheme-match": "^1.2.1",
     "morpheme-match-all": "^1.2.0",
-    "textlint-rule-helper": "^2.1.0"
+    "textlint-rule-helper": "^2.1.1",
+    "textlint-util-to-string": "^2.1.1"
   },
   "keywords": [
     "textlintrule"

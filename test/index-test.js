@@ -9,9 +9,41 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         "text",
         // することができるが正当な文 - http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0#comment-850ec4d194748453a39a
         "人は1人では育つことができない",
-        "あいつにだけは絶対抜かれることはできない"
+        "あいつにだけは絶対抜かれることはできない",
+        `> これは省略することが可能だが、省略しない。`, // 引用文はOK
+        `[これは省略することが可能](http://example)だが、省略しない。`, // リンクはOK
+        `
+1. 省略する
+2. ことが可能
+3. リストはアイテムごとにチェックする
+`
     ],
     invalid: [
+        // option
+        {
+            text: "> これは省略することが可能だが、省略しない。",
+            options: {
+                // すべてをチェックする
+                skipNodeTypes: []
+            },
+            errors: [
+                {
+                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 7
+                }
+            ]
+        },
+        // code + str
+        {
+            text: "`code`は省略することが可能だが、省略しない。",
+            errors: [
+                {
+                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    index: 9
+                }
+            ]
+        },
+        // check
         {
             text: "これは省略することが可能だが、省略しない。",
             errors: [
