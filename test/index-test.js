@@ -181,6 +181,28 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             ]
         },
         {
+            text: "ES5では`class`は予約語であるため、構文エラーとなり実行することはできません。",
+            output: "ES5では`class`は予約語であるため、構文エラーとなり実行できません。",
+            errors: [
+                {
+                    message: `【dict2】 "することはできませ"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
+                    index: 32
+                }
+            ]
+        },
+        {
+            text: "たとえば`window.document`プロパティは、グローバル変数の`document`としてアクセスすることもできます。",
+            output: "たとえば`window.document`プロパティは、グローバル変数の`document`としてアクセスできます。",
+            errors: [
+                {
+                    message: `【dict2】 "することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
+                    index: 53
+                }
+            ]
+        },
+        {
             text: "必要なら解析することが,できます。",
             output: "必要なら解析できます。",
             errors: [
@@ -193,7 +215,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析することもできますよ。",
-            output: "解析もできますよ。",
+            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
@@ -204,7 +226,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析することはできますよ。",
-            output: "解析はできますよ。",
+            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "することはできます"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
@@ -215,7 +237,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析する事はできますよ。",
-            output: "解析はできますよ。",
+            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "する事はできます"は冗長な表現です。"する事は"を省き簡潔な表現にすると文章が明瞭になります。

@@ -82,9 +82,9 @@ module.exports = [
                 _capture: "$3",
                 _capture_to_expected: function(actualToken) {
                     if (actualToken.surface_form === "も") {
-                        return "も";
+                        return "";
                     } else if (actualToken.surface_form === "は") {
-                        return "は";
+                        return "";
                     }
                     return "";
                 },
