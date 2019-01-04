@@ -8,6 +8,15 @@ const SectionName = "表現の一覧";
 const escapeMarkdown = (text) => {
     return text.replace(/([\[])/g, "\\$1");
 };
+
+/**
+ * descriptionがある場合はその内容を返す
+ * descriptionはgitの3行目と同じように詳細な解説内容
+ * @param dict
+ */
+const createDescription = (dict) => {
+    return dict.description ? `\n\n${dict.description}` : ""
+};
 const replaceWithCaptureTokens = (text, tokens) => {
     let resultText = text;
     tokens.forEach(token => {
@@ -29,11 +38,14 @@ const createExamples = dictionaries => {
     return dictionaries
         .map(dict => {
             return (
-                `- 【${dict.id}】 ${replaceWithCaptureTokens(dict.message, dict.tokens)}` +
+                `### 【${dict.id}】
+
+${replaceWithCaptureTokens(dict.message, dict.tokens)}${createDescription(dict)}` +
                 (dict.url
-                    ? `
-  - 参考: ${dict.url}`
-                    : "")
+                 ? `
+- 参考: ${dict.url}
+`
+                 : "")
             );
         })
         .join("\n");

@@ -31,7 +31,7 @@ const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
  * @param tokens
  * @returns {string}
  */
-const tokensToString = (tokens) => {
+const tokensToString = tokens => {
     return tokens.map(token => token.surface_form).join("");
 };
 
@@ -41,10 +41,12 @@ const tokensToString = (tokens) => {
  * @param {string[]} allows
  */
 const isTokensAllowed = (tokens, allows) => {
-    if (allows.length === 0) {return false;}
+    if (allows.length === 0) {
+        return false;
+    }
     const matchedText = tokensToString(tokens);
     const allowsMatchResults = matchPatterns(matchedText, allows);
-    return allowsMatchResults.length > 0
+    return allowsMatchResults.length > 0;
 };
 
 const createExpected = ({ text, matcherTokens, skipped, actualTokens }) => {
@@ -78,7 +80,8 @@ const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }) => {
         }
         ++actualTokenIndex;
     });
-    return `【${id}】 ${resultText}`;
+    return `【${id}】 ${resultText}
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#${id}`;
 };
 
 const reporter = (context, options = {}) => {
@@ -92,8 +95,7 @@ const reporter = (context, options = {}) => {
     // "disabled": trueな辞書は取り除く
     const enabledDictionaryList = dictionaryList.filter(dict => {
         const dictOption = dictOptions[dict.id] || {};
-        const disabled = typeof dictOption.disabled === "boolean" ? dictOption.disabled
-                                                                  : dict.disabled;
+        const disabled = typeof dictOption.disabled === "boolean" ? dictOption.disabled : dict.disabled;
         return !disabled;
     });
     const matchAll = createMatchAll(enabledDictionaryList);
@@ -138,7 +140,7 @@ const reporter = (context, options = {}) => {
                                     matcherTokens: matchResult.dict.tokens,
                                     skipped: matchResult.skipped,
                                     actualTokens: matchResult.tokens
-                                }) + (matchResult.dict.url ? `参考: ${matchResult.dict.url}` : "");
+                                });
                             const expected = matchResult.dict.expected
                                              ? createExpected({
                                     text: matchResult.dict.expected,

@@ -267,13 +267,19 @@ module.exports = [
         disabled: false,
         allows: ["/^[ァ-ヶ]+を.?行う/", "/^[a-zA-Z]+を.?行う/"],
         message: `"$1を$5行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        description: `[サ変名詞]とは「[名詞]する」というように「する」が後ろについた場合に、動詞の働きをする名詞です。
+
+例）「行動（する）」、「プログラム（する）」
+
+誤検知を防ぐためにデフォルトでは、「[カタナカ]を行う」と「[アルファベット]を行う」は"allows"で無視するように定義されています。
+`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
                 pos: "名詞",
                 pos_detail_1: "サ変接続",
                 _capture: "$1",
-                _readme: "[名詞]"
+                _readme: "[サ変名詞]"
             },
             {
                 surface_form: "を",
@@ -307,13 +313,19 @@ module.exports = [
         disabled: false,
         allows: ["/^[ァ-ヶ]+を.?実行/", "/^[a-zA-Z]+を.?実行/"],
         message: `"$1を$5実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        description: `[サ変名詞]とは「[名詞]する」というように「する」が後ろについた場合に、動詞の働きをする名詞です。
+
+例）「行動（する）」、「プログラム（する）」
+
+誤検知を防ぐためにデフォルトでは、「[カタナカ]を実行」と「[アルファベット]を実行」は"allows"で無視するように定義されています。
+`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
                 pos: "名詞",
                 pos_detail_1: "サ変接続",
                 _capture: "$1",
-                _readme: "[名詞]"
+                _readme: "[サ変名詞]"
             },
             {
                 surface_form: "を",
