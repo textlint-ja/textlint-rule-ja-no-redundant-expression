@@ -5,6 +5,9 @@ const punctuations = ["、", "､", "，", ","];
 module.exports = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
+        id: "dict1",
+        disabled: false,
+        allows: [],
         message: `"する$2$3$4$5$1"は冗長な表現です。"する$2$3$4$5"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
@@ -29,7 +32,7 @@ module.exports = [
             {
                 pos: "助詞",
                 _capture: "$3",
-                _readme: "\\[助詞]"
+                _readme: "[助詞]"
             },
             {
                 surface_form: punctuations,
@@ -49,6 +52,9 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=解析(することができます)。
+        id: "dict2",
+        disabled: false,
+        allows: [],
         message: `"する$4$3$5$1$2"は冗長な表現です。"する$4$3$5"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         expected: "$3$1$2",
@@ -82,7 +88,7 @@ module.exports = [
                     }
                     return "";
                 },
-                _readme: "\\[助詞]"
+                _readme: "[助詞]"
             },
             {
                 surface_form: punctuations,
@@ -104,6 +110,9 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると言えます)
+        id: "dict3",
+        disabled: false,
+        allows: [],
         message: `"で$1$6と$5$2ます"は冗長な表現です。"である$6" または "と$5言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
         tokens: [
@@ -166,6 +175,9 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=必要(であると考えている)
+        id: "dict4",
+        disabled: false,
+        allows: [],
         message: `"である$7と$5考えて$6いる"は冗長な表現です。"である$7" または "と$5考えて$6いる"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         expected: "である",
@@ -251,13 +263,23 @@ module.exports = [
     },
     {
         // https://azu.github.io/morpheme-match/?text=動作の(確認を行わなければ)ならない
+        id: "dict5",
+        disabled: false,
+        allows: ["/^[ァ-ヶ]+を.?行う/", "/^[a-zA-Z]+を.?行う/"],
         message: `"$1を$5行う"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        description: `[サ変名詞]とは「[名詞]する」というように「する」が後ろについた場合に、動詞の働きをする名詞です。
+
+例）「行動（する）」、「プログラム（する）」
+
+誤検知を防ぐためにデフォルトでは、「[カタカナ]を行う」と「[アルファベット]を行う」は"allows"で無視するように定義されています。
+`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
                 pos: "名詞",
                 pos_detail_1: "サ変接続",
-                _capture: "$1"
+                _capture: "$1",
+                _readme: "[サ変名詞]"
             },
             {
                 surface_form: "を",
@@ -287,13 +309,23 @@ module.exports = [
         ]
     },
     {
+        id: "dict6",
+        disabled: false,
+        allows: ["/^[ァ-ヶ]+を.?実行/", "/^[a-zA-Z]+を.?実行/"],
         message: `"$1を$5実行"は冗長な表現です。"$1する"など簡潔な表現にすると文章が明瞭になります。`,
+        description: `[サ変名詞]とは「[名詞]する」というように「する」が後ろについた場合に、動詞の働きをする名詞です。
+
+例）「行動（する）」、「プログラム（する）」
+
+誤検知を防ぐためにデフォルトでは、「[カタカナ]を実行」と「[アルファベット]を実行」は"allows"で無視するように定義されています。
+`,
         url: "http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html",
         tokens: [
             {
                 pos: "名詞",
                 pos_detail_1: "サ変接続",
-                _capture: "$1"
+                _capture: "$1",
+                _readme: "[サ変名詞]"
             },
             {
                 surface_form: "を",

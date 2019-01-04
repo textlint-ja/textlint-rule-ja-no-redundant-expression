@@ -16,7 +16,31 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
 1. 省略する
 2. ことが可能
 3. リストはアイテムごとにチェックする
-`
+`,
+        // デフォルトの例外
+        "プログラムを実行する",
+        "テストを行う",
+        {
+            text: "処理を行う",
+            options: {
+                dictOptions: {
+                    "dict5": {
+                        allows: ["処理"]
+                    }
+                }
+            }
+        },
+        {
+            // 辞書を無効化しているのでマッチしない
+            text: "これは省略することが可能だが、省略しない。",
+            options: {
+                dictOptions: {
+                    "dict1": {
+                        disabled: true
+                    }
+                }
+            }
+        }
     ],
     invalid: [
         // option
@@ -28,8 +52,27 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             },
             errors: [
                 {
-                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 7
+                }
+            ]
+        },
+        {
+            // disable allows
+            text: "テストを行う",
+            options: {
+                dictOptions: {
+                    "dict5": {
+                        allows: []
+                    }
+                }
+            },
+            errors: [
+                {
+                    message: `【dict5】 "テストを行う"は冗長な表現です。"テストする"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict5`,
+                    index: 0
                 }
             ]
         },
@@ -38,7 +81,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "`code`は省略することが可能だが、省略しない。",
             errors: [
                 {
-                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 9
                 }
             ]
@@ -48,7 +92,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することが可能だが、省略しない。",
             errors: [
                 {
-                    message: `"することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -57,7 +102,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することが可能です。",
             errors: [
                 {
-                    message: `"することが可能です"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することが可能です"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -66,7 +112,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することも可能だ。",
             errors: [
                 {
-                    message: `"することも可能だ"は冗長な表現です。"することも可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することも可能だ"は冗長な表現です。"することも可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -75,7 +122,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略する事は可能だ。",
             errors: [
                 {
-                    message: `"する事は可能だ"は冗長な表現です。"する事は可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "する事は可能だ"は冗長な表現です。"する事は可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -84,7 +132,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは，可能だ。",
             errors: [
                 {
-                    message: `"することは，可能だ"は冗長な表現です。"することは，可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することは，可能だ"は冗長な表現です。"することは，可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -93,7 +142,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは可能だ。",
             errors: [
                 {
-                    message: `"することは可能だ"は冗長な表現です。"することは可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することは可能だ"は冗長な表現です。"することは可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -102,7 +152,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは不可能だ。",
             errors: [
                 {
-                    message: `"することは不可能だ"は冗長な表現です。"することは不可能"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict1】 "することは不可能だ"は冗長な表現です。"することは不可能"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
             ]
@@ -112,7 +163,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "必要なら解析できます。",
             errors: [
                 {
-                    message: `"することができます"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することができます"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 6
                 }
             ]
@@ -122,7 +174,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "必要なら解析できます。",
             errors: [
                 {
-                    message: `"することが、できます"は冗長な表現です。"することが、"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することが、できます"は冗長な表現です。"することが、"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 6
                 }
             ]
@@ -132,7 +185,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "必要なら解析できます。",
             errors: [
                 {
-                    message: `"することが,できます"は冗長な表現です。"することが,"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することが,できます"は冗長な表現です。"することが,"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 6
                 }
             ]
@@ -142,7 +196,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "解析もできますよ。",
             errors: [
                 {
-                    message: `"することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 2
                 }
             ]
@@ -152,7 +207,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "解析はできますよ。",
             errors: [
                 {
-                    message: `"することはできます"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することはできます"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 2
                 }
             ]
@@ -162,7 +218,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "解析はできますよ。",
             errors: [
                 {
-                    message: `"する事はできます"は冗長な表現です。"する事は"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "する事はできます"は冗長な表現です。"する事は"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 2
                 }
             ]
@@ -173,7 +230,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: "解析できますよ。",
             errors: [
                 {
-                    message: `"することをできます"は冗長な表現です。"することを"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することをできます"は冗長な表現です。"することを"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     index: 2
                 }
             ]
@@ -182,7 +240,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは必要であると言えます。",
             errors: [
                 {
-                    message: `"であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
+                    message: `【dict3】 "であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict3`,
                     index: 5
                 }
             ]
@@ -191,7 +250,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは必要であると、言えます。",
             errors: [
                 {
-                    message: `"であると、言えます"は冗長な表現です。"である" または "と、言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
+                    message: `【dict3】 "であると、言えます"は冗長な表現です。"である" または "と、言えます"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict3`,
                     index: 5
                 }
             ]
@@ -201,7 +261,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             output: `これは大切である`,
             errors: [
                 {
-                    message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict4】 "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict4`,
                     index: 5
                 }
             ]
@@ -210,7 +271,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは必要で有るといえます。",
             errors: [
                 {
-                    message: `"で有るといえます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.sekaihaasobiba.com/entry/2014/10/24/204024`,
+                    message: `【dict3】 "で有るといえます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict3`,
                     index: 5
                 }
             ]
@@ -219,7 +281,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは必要である,と、考えて,います。",
             errors: [
                 {
-                    message: `"である,と、考えて,いる"は冗長な表現です。"である," または "と、考えて,いる"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict4】 "である,と、考えて,いる"は冗長な表現です。"である," または "と、考えて,いる"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict4`,
                     index: 5
                 }
             ]
@@ -228,7 +291,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "実験を行えば分かります。",
             errors: [
                 {
-                    message: `"実験を行う"は冗長な表現です。"実験する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict5】 "実験を行う"は冗長な表現です。"実験する"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict5`,
                     index: 0
                 }
             ]
@@ -237,7 +301,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "実験を,行えば分かります。",
             errors: [
                 {
-                    message: `"実験を,行う"は冗長な表現です。"実験する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict5】 "実験を,行う"は冗長な表現です。"実験する"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict5`,
                     index: 0
                 }
             ]
@@ -246,7 +311,8 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "検査を実行すれば分かります。",
             errors: [
                 {
-                    message: `"検査を実行"は冗長な表現です。"検査する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict6】 "検査を実行"は冗長な表現です。"検査する"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict6`,
                     index: 0
                 }
             ]
@@ -258,17 +324,20 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                 "このコマンドの後には任意の値を設定することができる。このため、設定した値ごとに、システムの動作の確認を行わなければならない。この作業には時間がかかるため、テスト要員の追加が必要であると考えている。",
             errors: [
                 {
-                    message: `"することができる。"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。参考: http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0`,
+                    message: `【dict2】 "することができる。"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict2`,
                     line: 1,
                     column: 18
                 },
                 {
-                    message: `"確認を行う"は冗長な表現です。"確認する"など簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict5】 "確認を行う"は冗長な表現です。"確認する"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict5`,
                     line: 1,
                     column: 49
                 },
                 {
-                    message: `"であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。参考: http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html`,
+                    message: `【dict4】 "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict4`,
                     line: 1,
                     column: 89
                 }
