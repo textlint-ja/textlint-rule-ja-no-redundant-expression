@@ -1,8 +1,15 @@
 // MIT © 2016 azu
 "use strict";
 const punctuations = ["、", "､", "，", ","];
-
-module.exports = [
+/**
+ * _capture_to_expectedで返すことが特殊な値
+ * @type {{STOP_REPLACE: string}}
+ */
+const ExpectedType = {
+    // Expectedへの変換自体を取りやめる
+    "STOP_REPLACE": "STOP_REPLACE"
+};
+const Dictionary = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
         id: "dict1",
@@ -80,13 +87,12 @@ module.exports = [
             {
                 pos: "助詞",
                 _capture: "$3",
-                _capture_to_expected: function(actualToken) {
-                    if (actualToken.surface_form === "も") {
-                        return "";
-                    } else if (actualToken.surface_form === "は") {
+                _capture_to_expected: (actualToken) => {
+                    // 誤検知しにくい「が」のみ修正する
+                    if (actualToken.surface_form === "が") {
                         return "";
                     }
-                    return "";
+                    return ExpectedType.STOP_REPLACE;
                 },
                 _readme: "[助詞]"
             },
@@ -359,3 +365,8 @@ module.exports = [
         ]
     }
 ];
+
+export {
+    Dictionary,
+    ExpectedType
+}

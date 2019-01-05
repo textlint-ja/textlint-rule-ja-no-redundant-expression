@@ -158,6 +158,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                 }
             ]
         },
+        // "が"は修正可能
         {
             text: "必要なら解析することができます。",
             output: "必要なら解析できます。",
@@ -182,7 +183,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "ES5では`class`は予約語であるため、構文エラーとなり実行することはできません。",
-            output: "ES5では`class`は予約語であるため、構文エラーとなり実行できません。",
             errors: [
                 {
                     message: `【dict2】 "することはできませ"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
@@ -193,7 +193,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "たとえば`window.document`プロパティは、グローバル変数の`document`としてアクセスすることもできます。",
-            output: "たとえば`window.document`プロパティは、グローバル変数の`document`としてアクセスできます。",
             errors: [
                 {
                     message: `【dict2】 "することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
@@ -215,7 +214,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析することもできますよ。",
-            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "することもできます"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
@@ -226,7 +224,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析することはできますよ。",
-            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "することはできます"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
@@ -237,7 +234,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         },
         {
             text: "解析する事はできますよ。",
-            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "する事はできます"は冗長な表現です。"する事は"を省き簡潔な表現にすると文章が明瞭になります。
@@ -249,7 +245,6 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
 
         {
             text: "解析することをできますよ。",
-            output: "解析できますよ。",
             errors: [
                 {
                     message: `【dict2】 "することをできます"は冗長な表現です。"することを"を省き簡潔な表現にすると文章が明瞭になります。
@@ -306,6 +301,17 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
                     message: `【dict4】 "である,と、考えて,いる"は冗長な表現です。"である," または "と、考えて,いる"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict4`,
                     index: 5
+                }
+            ]
+        },
+        {
+            text: "この関数では、XHRを使ったデータの取得・HTML文字列の組み立て・組み立てたHTMLの表示を行っています。",
+            output: "この関数では、XHRを使ったデータの取得・HTML文字列の組み立て・組み立てたHTMLの表示を行っています。",
+            errors: [
+                {
+                    message: `【dict5】 "表示を行う"は冗長な表現です。"表示する"など簡潔な表現にすると文章が明瞭になります。
+解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict5`,
+                    index: 44
                 }
             ]
         },
