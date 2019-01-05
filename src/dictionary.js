@@ -366,7 +366,5 @@ const Dictionary = [
     }
 ];
 
-export {
-    Dictionary,
-    ExpectedType
-}
+module.exports.Dictionary = Dictionary;
+module.exports.ExpectedType = ExpectedType;

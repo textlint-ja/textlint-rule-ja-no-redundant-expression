@@ -3,7 +3,7 @@
 import { matchPatterns } from "@textlint/regexp-string-matcher";
 import { wrapReportHandler } from "textlint-rule-helper";
 import StringSource from "textlint-util-to-string";
-import { Dictionary, ExpectedType } from "./dictionary.js"
+const { Dictionary, ExpectedType } = require("./dictionary.js")
 
 const tokenize = require("kuromojin").tokenize;
 
