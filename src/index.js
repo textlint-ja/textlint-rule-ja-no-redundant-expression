@@ -51,37 +51,6 @@ const isTokensAllowed = (tokens, allows) => {
 };
 
 /**
- * 置換できるかどうかを判定する
- * @param matchResult
- * @returns {boolean}
- */
-const canReplaceToExpected = (matchResult) => {
-    const { dict, skipped } = matchResult;
-    const actualTokens = matchResult.tokens;
-    const matcherTokens = dict.tokens;
-    // expectedが定義されていない場合は置換できな
-    if (!dict.expected) {
-        return false;
-    }
-    let actualTokenIndex = 0;
-    for (let index = 0; index < matcherTokens.length; index++) {
-        const token = matcherTokens[index];
-        if (skipped[index]) {
-            continue;
-        }
-        if (token._capture) {
-            const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
-            // _capture_to_expectedが"STOP_REPLACE"を返した場合は置換を取りやめる
-            if (to === ExpectedType.STOP_REPLACE) {
-                return false;
-            }
-        }
-        ++actualTokenIndex;
-    }
-    return true;
-};
-
-/**
  * マッチしたtokensを置換した結果の文字列を返す
  * 置換できなかった場合はnullを返す
  * @param {string} expected
