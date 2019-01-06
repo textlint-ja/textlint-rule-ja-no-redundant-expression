@@ -1,11 +1,12 @@
 // MIT © 2016 azu
 "use strict";
+import { matchPatterns } from "@textlint/regexp-string-matcher";
 import { wrapReportHandler } from "textlint-rule-helper";
 import StringSource from "textlint-util-to-string";
-import { matchPatterns } from "@textlint/regexp-string-matcher";
+const { Dictionary, ExpectedType } = require("./dictionary.js")
 
 const tokenize = require("kuromojin").tokenize;
-const dictionaryList = require("./dictionary");
+
 const createMatchAll = require("morpheme-match-all");
 
 /**
@@ -49,22 +50,40 @@ const isTokensAllowed = (tokens, allows) => {
     return allowsMatchResults.length > 0;
 };
 
-const createExpected = ({ text, matcherTokens, skipped, actualTokens }) => {
-    let resultText = text;
+/**
+ * マッチしたtokensを置換した結果の文字列を返す
+ * 置換できなかった場合はnullを返す
+ * @param {string} expected
+ * @param {*[]} matcherTokens
+ * @param {boolean[]} skipped
+ * @param {*[]} actualTokens
+ * @returns {null|string}
+ */
+const createExpected = ({ expected, matcherTokens, skipped, actualTokens }) => {
+    if (!expected) {
+        return null;
+    }
+    let resultText = expected;
     let actualTokenIndex = 0;
-    matcherTokens.forEach((token, index) => {
+    for (let index = 0; index < matcherTokens.length; index++) {
+        const token = matcherTokens[index];
         if (skipped[index]) {
             resultText = replaceAll(resultText, token._capture, "");
-            return;
+            continue;
         }
         if (token._capture) {
             const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
+            // _capture_to_expectedが"STOP_REPLACE"を返した場合は置換を取りやめる
+            if (to === ExpectedType.STOP_REPLACE) {
+                return null;
+            }
             resultText = replaceAll(resultText, token._capture, to);
         }
         ++actualTokenIndex;
-    });
+    }
     return resultText;
 };
+
 const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }) => {
     let resultText = text;
     let actualTokenIndex = 0;
@@ -93,7 +112,7 @@ const reporter = (context, options = {}) => {
     };
     const dictOptions = options.dictOptions || DefaultOptions.dictOptions;
     // "disabled": trueな辞書は取り除く
-    const enabledDictionaryList = dictionaryList.filter(dict => {
+    const enabledDictionaryList = Dictionary.filter(dict => {
         const dictOption = dictOptions[dict.id] || {};
         const disabled = typeof dictOption.disabled === "boolean" ? dictOption.disabled : dict.disabled;
         return !disabled;
@@ -132,7 +151,7 @@ const reporter = (context, options = {}) => {
                             const lastWordIndex = source.originalIndexFromIndex(
                                 Math.max(lastToken.word_position - 1, 0)
                             );
-                            // replace $1
+                            // エラーメッセージ
                             const message =
                                 createMessage({
                                     id: matchResult.dict.id,
@@ -141,15 +160,15 @@ const reporter = (context, options = {}) => {
                                     skipped: matchResult.skipped,
                                     actualTokens: matchResult.tokens
                                 });
-                            const expected = matchResult.dict.expected
-                                             ? createExpected({
-                                    text: matchResult.dict.expected,
-                                    matcherTokens: matchResult.dict.tokens,
-                                    skipped: matchResult.skipped,
-                                    actualTokens: matchResult.tokens
-                                })
-                                             : undefined;
-                            if (expected) {
+                            // 置換結果
+                            const expected = createExpected({
+                                expected: matchResult.dict.expected,
+                                matcherTokens: matchResult.dict.tokens,
+                                skipped: matchResult.skipped,
+                                actualTokens: matchResult.tokens
+                            });
+                            const hasFixableResult = expected && tokensToString(matchResult.tokens) !== expected;
+                            if (hasFixableResult) {
                                 const wordLength = lastToken.surface_form.length;
                                 report(
                                     node,
