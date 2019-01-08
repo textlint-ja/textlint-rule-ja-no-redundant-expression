@@ -20,6 +20,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         // デフォルトの例外
         "プログラムを実行する",
         "テストを行う",
+        "テストを行っているとき",
         {
             text: "処理を行う",
             options: {
