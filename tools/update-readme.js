@@ -15,7 +15,27 @@ const escapeMarkdown = (text) => {
  * @param dict
  */
 const createDescription = (dict) => {
-    return dict.description ? `\n\n${dict.description}` : ""
+    return dict.description ? `\n\n${dict.description}\n\n` : ""
+};
+/**
+ * allowsがある場合はその内容を返す
+ * @param dict
+ */
+const createAllows = (dict) => {
+    if(!dict.allows){
+        return ""
+    }
+    if (!Array.isArray(dict.allows)) {
+        return "";
+    }
+    if (dict.allows.length === 0) {
+        return ""
+    }
+    return `
+誤検知を防ぐためにデフォルトでは、"allows"オプションに次のパターンが定義されています。
+    
+    ${JSON.stringify(dict.allows)}
+`;
 };
 const replaceWithCaptureTokens = (text, tokens) => {
     let resultText = text;
@@ -40,10 +60,13 @@ const createExamples = dictionaries => {
             return (
                 `### 【${dict.id}】
 
-${replaceWithCaptureTokens(dict.message, dict.tokens)}${createDescription(dict)}` +
+${replaceWithCaptureTokens(dict.message, dict.tokens)}${createDescription(dict)}${createAllows(dict)}` +
                 (dict.url
                  ? `
-- 参考: ${dict.url}
+
+**参考:**
+ 
+- ${dict.url}
 `
                  : "")
             );

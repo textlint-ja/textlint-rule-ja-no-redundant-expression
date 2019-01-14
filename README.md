@@ -10,25 +10,33 @@
 
 "すること\[助詞](不)可能"は冗長な表現です。"すること\[助詞](不)可能"を省き簡潔な表現にすると文章が明瞭になります。
 
-- 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
+**参考:**
+
+- <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
 
 ### 【dict2】
 
 "すること\[助詞]できる"は冗長な表現です。"すること\[助詞]"を省き簡潔な表現にすると文章が明瞭になります。
 
-- 参考: <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
+**参考:**
+
+- <http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0>
 
 ### 【dict3】
 
 "であると言えます"は冗長な表現です。"である" または "と言えます"を省き簡潔な表現にすると文章が明瞭になります。
 
-- 参考: <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
+**参考:**
+
+- <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
 
 ### 【dict4】
 
 "であると考えている"は冗長な表現です。"である" または "と考えている"を省き簡潔な表現にすると文章が明瞭になります。
 
-- 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+**参考:**
+
+- <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ### 【dict5】
 
@@ -38,9 +46,13 @@
 
 例）「行動（する）」、「プログラム（する）」
 
-誤検知を防ぐためにデフォルトでは、「[カタカナ]を行う」と「[アルファベット]を行う」は"allows"で無視するように定義されています。
+誤検知を防ぐためにデフォルトでは、"allows"オプションに次のパターンが定義されています。
 
-- 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+    ["/^処理を行[ぁ-ん]/","/^[ァ-ヶ]+を.?行[ぁ-ん]/","/^[a-zA-Z]+を.?行[ぁ-ん]/"]
+
+**参考:**
+
+- <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ### 【dict6】
 
@@ -50,9 +62,13 @@
 
 例）「行動（する）」、「プログラム（する）」
 
-誤検知を防ぐためにデフォルトでは、「[カタカナ]を実行」と「[アルファベット]を実行」は"allows"で無視するように定義されています。
+誤検知を防ぐためにデフォルトでは、"allows"オプションに次のパターンが定義されています。
 
-- 参考: <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
+    ["/^処理を実行/","/^[ァ-ヶ]+を.?実行/","/^[a-zA-Z]+を.?実行/"]
+
+**参考:**
+
+- <http://www.atmarkit.co.jp/ait/articles/1001/19/news106_2.html>
 
 ## Install
 
@@ -91,7 +107,7 @@ Via CLI
   - `allows`: `string[]`
     - エラーを無視したいパターンを[正規表現ライクな文字列](https://github.com/textlint/regexp-string-matcher)で指定
 
-例) [dict1](#dict1)は無効化、[dict5](#dict5)で"処理を行う"をエラーにしない。
+例) [dict1](#dict1)は無効化、[dict5](#dict5)で"議論を行う"をエラーにしない。
 
 ```json5
 {
@@ -102,12 +118,13 @@ Via CLI
                      "disabled": true
                 },
                 "dict5": {
-                    // "処理を行う" を許可する
+                    // "議論を行う" を許可する
                     allows: [
-                        "/^処理を行う/",
+                        "/^議論を行う/",
                         // デフォルトの許可リストは上書きされるので、維持したい場合は追加する
-                        "/^[ァ-ヶ]+を.?行う/",
-                        "/^[a-zA-Z]+を.?行う/"    
+                        "/^処理を行[ぁ-ん]/",
+                        "/^[ァ-ヶ]+を.?行[ぁ-ん]/",
+                        "/^[a-zA-Z]+を.?行[ぁ-ん]/"
                     ]
                 }
             }
