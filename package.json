@@ -11,7 +11,7 @@
   ],
   "name": "textlint-rule-ja-no-redundant-expression",
   "description": "冗長な表現を禁止するtextlintルール",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "lib/index.js",
   "scripts": {
     "test": "textlint-scripts test",
