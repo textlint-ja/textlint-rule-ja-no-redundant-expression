@@ -107,7 +107,7 @@ const reporter = (context, options = {}) => {
     const { Syntax, RuleError, fixer } = context;
     const DefaultOptions = {
         // https://textlint.github.io/docs/txtnode.html#type
-        allowNodeTypes: [Syntax.BlockQuote, Syntax.Link, Syntax.ReferenceDef],
+        allowNodeTypes: [Syntax.BlockQuote, Syntax.Link, Syntax.ReferenceDef, Syntax.Code],
         dictOptions: {}
     };
     const dictOptions = options.dictOptions || DefaultOptions.dictOptions;

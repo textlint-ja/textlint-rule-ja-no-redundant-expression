@@ -10,6 +10,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
         // することができるが正当な文 - http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0#comment-850ec4d194748453a39a
         "人は1人では育つことができない",
         "あいつにだけは絶対抜かれることはできない",
+        "`することができる`という冗長な表現を`できる`にするルールです。", // コードはOK
         `> これは省略することが可能だが、省略しない。`, // 引用文はOK
         `[これは省略することが可能](http://example)だが、省略しない。`, // リンクはOK
         `

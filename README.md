@@ -97,7 +97,7 @@ Via CLI
 - `allowNodeTypes`: `string[]`
   - 無視したいNode typeを配列で指定
   - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
-  - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef"]`を指定し、引用やリンクのテキストは無視する
+  - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef", "Code"]`を指定し、引用やリンクのテキストは無視する
 - `dictOptions`: `object`
   - それぞれの`dict`に対するオプションを指定する
   - プロパティに`dict`の【dict[id]】を書き、値には次の辞書オプションを指定する
