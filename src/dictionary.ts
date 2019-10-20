@@ -5,11 +5,62 @@ const punctuations = ["、", "､", "，", ","];
  * _capture_to_expectedで返すことが特殊な値
  * @type {{STOP_REPLACE: string}}
  */
-const ExpectedType = {
+export const ExpectedType = {
     // Expectedへの変換自体を取りやめる
     "STOP_REPLACE": "STOP_REPLACE"
 };
-const Dictionary = [
+
+
+export type ExpectedTokenAdditional = {
+    _skippable?: boolean;
+};
+
+// ExpectedToken is based on Token
+// But support array of each properties
+export type ExpectedToken = {
+        // 辞書内での単語ID
+        word_id?: number | number[];
+        // 単語タイプ(辞書に登録されている単語ならKNOWN; 未知語ならUNKNOWN)
+        word_type?: "KNOWN" | "UNKNOWN";
+        // 表層形
+        surface_form?: string | string[];
+        // 品詞
+        pos?: string | string[];
+        // 品詞細分類1
+        pos_detail_1?: string | string[];
+        // 品詞細分類2
+        pos_detail_2?: string | string[];
+        // 品詞細分類3
+        pos_detail_3?: string | string[];
+        // 活用型
+        conjugated_type?: string | string[];
+        // 活用形
+        conjugated_form?: string | string[];
+        // 基本形
+        basic_form?: string | string[];
+        // 読み
+        reading?: string | string[];
+        // 発音
+        pronunciation?: string | string[];
+        // 単語の開始位置
+        word_position?: number | number[];
+    }
+    & ExpectedTokenAdditional
+    & {
+    [index: string]: any;
+};
+export type ExpectedDictionary = {
+    id: string;
+    disabled: boolean
+    allows: string[];
+    message: string
+    url: string;
+    expected?: string;
+    description?: string;
+    tokens: ExpectedToken[]
+}
+
+export const Dictionary: ExpectedDictionary[] = [
     {
         // https://azu.github.io/morpheme-match/?text=省略(することが可能)。
         id: "dict1",
@@ -87,7 +138,7 @@ const Dictionary = [
             {
                 pos: "助詞",
                 _capture: "$3",
-                _capture_to_expected: (actualToken) => {
+                _capture_to_expected: (actualToken: any) => {
                     // 誤検知しにくい「が」のみ修正する
                     if (actualToken.surface_form === "が") {
                         return "";
@@ -363,6 +414,3 @@ const Dictionary = [
         ]
     }
 ];
-
-module.exports.Dictionary = Dictionary;
-module.exports.ExpectedType = ExpectedType;

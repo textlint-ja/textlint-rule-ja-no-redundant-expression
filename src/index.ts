@@ -2,12 +2,12 @@
 "use strict";
 import { matchPatterns } from "@textlint/regexp-string-matcher";
 import { wrapReportHandler } from "textlint-rule-helper";
-import StringSource from "textlint-util-to-string";
-const { Dictionary, ExpectedType } = require("./dictionary.js")
+import { StringSource } from "textlint-util-to-string";
+import { Dictionary, ExpectedType } from "./dictionary";
 
-const tokenize = require("kuromojin").tokenize;
-
-const createMatchAll = require("morpheme-match-all");
+import { tokenize, KuromojiToken } from "kuromojin";
+import { TextlintRuleModule } from "@textlint/types";
+import { createMatcher } from "morpheme-match-all";
 
 /**
  * textの中身をすべて置換する
@@ -16,11 +16,14 @@ const createMatchAll = require("morpheme-match-all");
  * @param {string} to
  * @returns {string}
  */
-const replaceAll = (text, from, to) => {
+const replaceAll = (text: string, from: string | undefined, to: string): string => {
+    if (!from) {
+        return text;
+    }
     return text.split(from).join(to);
 };
 
-const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
+const replaceTokenWith = (matcherToken: any, actualToken: KuromojiToken, specialTo: string) => {
     if (matcherToken[specialTo]) {
         return matcherToken[specialTo](actualToken);
     }
@@ -32,7 +35,7 @@ const replaceTokenWith = (matcherToken, actualToken, specialTo) => {
  * @param tokens
  * @returns {string}
  */
-const tokensToString = tokens => {
+const tokensToString = (tokens: KuromojiToken[]) => {
     return tokens.map(token => token.surface_form).join("");
 };
 
@@ -41,7 +44,7 @@ const tokensToString = tokens => {
  * @param {*[]} tokens
  * @param {string[]} allows
  */
-const isTokensAllowed = (tokens, allows) => {
+const isTokensAllowed = (tokens: KuromojiToken[], allows: string[]) => {
     if (allows.length === 0) {
         return false;
     }
@@ -59,7 +62,9 @@ const isTokensAllowed = (tokens, allows) => {
  * @param {*[]} actualTokens
  * @returns {null|string}
  */
-const createExpected = ({ expected, matcherTokens, skipped, actualTokens }) => {
+const createExpected = ({ expected, matcherTokens, skipped, actualTokens }: {
+    expected?: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[]
+}): null | string => {
     if (!expected) {
         return null;
     }
@@ -84,7 +89,7 @@ const createExpected = ({ expected, matcherTokens, skipped, actualTokens }) => {
     return resultText;
 };
 
-const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }) => {
+const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }: { id: string, text: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[] }) => {
     let resultText = text;
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
@@ -103,7 +108,22 @@ const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }) => {
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#${id}`;
 };
 
-const reporter = (context, options = {}) => {
+export interface Options {
+    // - それぞれの`dict`に対するオプションを指定する
+    // - プロパティに`dict`の【dict[id]】を書き、値には次の辞書オプションを指定する
+    // - 辞書オプション: `object`
+    dictOptions?: {
+        [index: string]: {
+            disabled?: boolean;
+            allows?: string[]
+        }
+    };
+    // - 無視したいNode typeを配列で指定
+    // - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
+    // - デフォルトでは、`["BlockQuote", "Link", "ReferenceDef", "Code"]`を指定し、引用やリンクのテキストは無視する
+}
+
+const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
     const { Syntax, RuleError, fixer } = context;
     const DefaultOptions = {
         // https://textlint.github.io/docs/txtnode.html#type
@@ -117,7 +137,7 @@ const reporter = (context, options = {}) => {
         const disabled = typeof dictOption.disabled === "boolean" ? dictOption.disabled : dict.disabled;
         return !disabled;
     });
-    const matchAll = createMatchAll(enabledDictionaryList);
+    const matchAll = createMatcher(enabledDictionaryList);
     const skipNodeTypes = options.allowNodeTypes || DefaultOptions.allowNodeTypes;
     return wrapReportHandler(
         context,
@@ -130,9 +150,6 @@ const reporter = (context, options = {}) => {
                     const source = new StringSource(node);
                     const text = source.toString();
                     return tokenize(text).then(currentTokens => {
-                        /**
-                         * @type {MatchResult[]}
-                         */
                         const matchResults = matchAll(currentTokens);
                         matchResults.forEach(matchResult => {
                             const dictOption = dictOptions[matchResult.dict.id] || {};
@@ -147,10 +164,10 @@ const reporter = (context, options = {}) => {
                             const lastToken = matchResult.tokens[matchResult.tokens.length - 1];
                             const firstWordIndex = source.originalIndexFromIndex(
                                 Math.max(firstToken.word_position - 1, 0)
-                            );
+                            ) || 0;
                             const lastWordIndex = source.originalIndexFromIndex(
                                 Math.max(lastToken.word_position - 1, 0)
-                            );
+                            ) || 0;
                             // エラーメッセージ
                             const message =
                                 createMessage({
@@ -168,7 +185,7 @@ const reporter = (context, options = {}) => {
                                 actualTokens: matchResult.tokens
                             });
                             const hasFixableResult = expected && tokensToString(matchResult.tokens) !== expected;
-                            if (hasFixableResult) {
+                            if (expected && hasFixableResult) {
                                 const wordLength = lastToken.surface_form.length;
                                 report(
                                     node,
@@ -195,7 +212,7 @@ const reporter = (context, options = {}) => {
         }
     );
 };
-module.exports = {
+export default {
     linter: reporter,
     fixer: reporter
 };

@@ -101,11 +101,11 @@ Via CLI
 - `dictOptions`: `object`
   - それぞれの`dict`に対するオプションを指定する
   - プロパティに`dict`の【dict[id]】を書き、値には次の辞書オプションを指定する
-- 辞書オプション: `object`
-  - `disbled`: `boolean`
-    - `true`を指定するdictを無効化
-  - `allows`: `string[]`
-    - エラーを無視したいパターンを[正規表現ライクな文字列](https://github.com/textlint/regexp-string-matcher)で指定
+    - 辞書オプション: `object`
+      - `disabled`: `boolean`
+        - `true`を指定するdictを無効化
+      - `allows`: `string[]`
+        - エラーを無視したいパターンを[正規表現ライクな文字列](https://github.com/textlint/regexp-string-matcher)で指定
 
 例) [dict1](#dict1)は無効化、[dict5](#dict5)で"議論を行う"をエラーにしない。
 
