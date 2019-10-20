@@ -2,18 +2,19 @@
 "use strict";
 import assert from "assert";
 
-import { Dictionary } from "../src/dictionary.js";
-describe('dictionary', function() {
+import { Dictionary } from "../src/dictionary";
+
+describe("dictionary", function() {
     it("should not have duplicated id", () => {
         Dictionary.forEach(item => {
-            assert.ok(typeof item.id === "string", "should have id property");
+            assert.strictEqual(typeof item.id, "string", "should have id property");
             const sameIdItems = Dictionary.filter(target => target.id === item.id);
             assert.ok(sameIdItems.length === 1, "should not have duplicated id item");
         });
     });
     it("should have disabled default value", () => {
         Dictionary.forEach(item => {
-            assert.ok(typeof item.disabled === "boolean", `${item} should have disabled property`);
+            assert.strictEqual(typeof item.disabled, "boolean", `${item} should have disabled property`);
         });
     });
     it("should have allows default value", () => {
