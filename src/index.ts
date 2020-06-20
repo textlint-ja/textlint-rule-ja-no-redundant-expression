@@ -9,6 +9,8 @@ import { tokenize, KuromojiToken } from "kuromojin";
 import { TextlintRuleModule } from "@textlint/types";
 import { createMatcher } from "morpheme-match-all";
 
+
+const IGNORE_MATCH = Symbol("無視パターン");
 /**
  * textの中身をすべて置換する
  * @param {string} text
@@ -60,33 +62,45 @@ const isTokensAllowed = (tokens: KuromojiToken[], allows: string[]) => {
  * @param {*[]} matcherTokens
  * @param {boolean[]} skipped
  * @param {*[]} actualTokens
- * @returns {null|string}
+ * @returns {null|string|object}
  */
 const createExpected = ({ expected, matcherTokens, skipped, actualTokens }: {
     expected?: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[]
-}): null | string => {
+}): null | string | typeof IGNORE_MATCH => {
     if (!expected) {
         return null;
     }
     let resultText = expected;
     let actualTokenIndex = 0;
+    let shouldReplace = true;
     for (let index = 0; index < matcherTokens.length; index++) {
         const token = matcherTokens[index];
         if (skipped[index]) {
             resultText = replaceAll(resultText, token._capture, "");
             continue;
         }
+        if (token._shouldMatch) {
+            const shouldMatch = token._shouldMatch(actualTokens[actualTokenIndex]);
+            console.log(shouldMatch);
+            if (!shouldMatch) {
+                return IGNORE_MATCH;
+            }
+        }
         if (token._capture) {
             const to = replaceTokenWith(token, actualTokens[actualTokenIndex], "_capture_to_expected");
             // _capture_to_expectedが"STOP_REPLACE"を返した場合は置換を取りやめる
             if (to === ExpectedType.STOP_REPLACE) {
-                return null;
+                shouldReplace = false;
             }
             resultText = replaceAll(resultText, token._capture, to);
         }
         ++actualTokenIndex;
     }
-    return resultText;
+    if (shouldReplace) {
+        return resultText;
+    } else {
+        return null;
+    }
 };
 
 const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }: { id: string, text: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[] }) => {
@@ -184,6 +198,9 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
                                 skipped: matchResult.skipped,
                                 actualTokens: matchResult.tokens
                             });
+                            if (expected === IGNORE_MATCH) {
+                                return; // ignore case
+                            }
                             const hasFixableResult = expected && tokensToString(matchResult.tokens) !== expected;
                             if (expected && hasFixableResult) {
                                 const wordLength = lastToken.surface_form.length;

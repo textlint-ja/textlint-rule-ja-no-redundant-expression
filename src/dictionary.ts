@@ -7,7 +7,9 @@ const punctuations = ["、", "､", "，", ","];
  */
 export const ExpectedType = {
     // Expectedへの変換自体を取りやめる
-    "STOP_REPLACE": "STOP_REPLACE"
+    "STOP_REPLACE": "STOP_REPLACE",
+    // マッチしないことにする
+    "IGNORE_MATCH": "IGNORE_MATCH"
 };
 
 
@@ -161,7 +163,12 @@ export const Dictionary: ExpectedDictionary[] = [
                 _capture: "$1"
             },
             {
-                _capture: "$2"
+                _capture: "$2",
+                _shouldMatch: (actualToken: any) => {
+                    // https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression/issues/24
+                    // 「でき」「ませ」「ん」 などの否定は置換しない
+                    return !(actualToken.conjugated_type === "特殊・マス" && actualToken.reading === "マセ");
+                }
             }
         ]
     },
