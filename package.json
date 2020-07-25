@@ -38,16 +38,16 @@
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "textlint-scripts": "^3.0.0",
-    "ts-node": "^8.4.1",
-    "typescript": "^3.6.4"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@textlint/regexp-string-matcher": "^1.0.2",
+    "@textlint/regexp-string-matcher": "^1.1.0",
     "kuromojin": "^2.0.0",
     "morpheme-match": "^2.0.4",
     "morpheme-match-all": "^2.0.5",
     "textlint-rule-helper": "^2.1.1",
-    "textlint-util-to-string": "^3.0.0"
+    "textlint-util-to-string": "^3.1.1"
   },
   "keywords": [
     "textlintrule"
