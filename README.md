@@ -1,4 +1,4 @@
-# textlint-rule-ja-no-redundant-expression [![Actions Status: test](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green/workflows/test/badge.svg)](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression.svg?branch=master)](https://travis-ci.org/textlint-ja/textlint-rule-ja-no-redundant-expression) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green/actions?query=workflow%3A"test")
+# textlint-rule-ja-no-redundant-expression [![test](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression/actions/workflows/test.yml/badge.svg)](https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression/actions/workflows/test.yml)
 
 冗長な表現を禁止するtextlintルールです。
 
