@@ -28,7 +28,7 @@
 
 **参考:**
 
-- <http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
+- <https://web.archive.org/web/20170608111205/http://www.sekaihaasobiba.com/entry/2014/10/24/204024>
 
 ### 【dict4】
 
