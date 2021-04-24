@@ -168,7 +168,7 @@ export const Dictionary: ExpectedDictionary[] = [
         disabled: false,
         allows: [],
         message: `"で$1$6と$5$2ます"は冗長な表現です。"である$6" または "と$5言えます"を省き簡潔な表現にすると文章が明瞭になります。`,
-        url: "http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
+        url: "https://web.archive.org/web/20170608111205/http://www.sekaihaasobiba.com/entry/2014/10/24/204024",
         tokens: [
             {
                 surface_form: "で",
