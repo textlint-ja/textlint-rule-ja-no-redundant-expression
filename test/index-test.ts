@@ -28,7 +28,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "処理を行う",
             options: {
                 dictOptions: {
-                    "dict5": {
+                    dict5: {
                         allows: ["処理"]
                     }
                 }
@@ -39,7 +39,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することが可能だが、省略しない。",
             options: {
                 dictOptions: {
-                    "dict1": {
+                    dict1: {
                         disabled: true
                     }
                 }
@@ -67,7 +67,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "テストを行う",
             options: {
                 dictOptions: {
-                    "dict5": {
+                    dict5: {
                         allows: []
                     }
                 }

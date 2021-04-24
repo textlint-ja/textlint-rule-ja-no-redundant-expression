@@ -36,7 +36,7 @@ const replaceTokenWith = (matcherToken: any, actualToken: KuromojiToken, special
  * @returns {string}
  */
 const tokensToString = (tokens: KuromojiToken[]) => {
-    return tokens.map(token => token.surface_form).join("");
+    return tokens.map((token) => token.surface_form).join("");
 };
 
 /**
@@ -62,8 +62,16 @@ const isTokensAllowed = (tokens: KuromojiToken[], allows: string[]) => {
  * @param {*[]} actualTokens
  * @returns {null|string}
  */
-const createExpected = ({ expected, matcherTokens, skipped, actualTokens }: {
-    expected?: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[]
+const createExpected = ({
+    expected,
+    matcherTokens,
+    skipped,
+    actualTokens
+}: {
+    expected?: string;
+    matcherTokens: any[];
+    skipped: boolean[];
+    actualTokens: KuromojiToken[];
 }): null | string => {
     if (!expected) {
         return null;
@@ -89,7 +97,19 @@ const createExpected = ({ expected, matcherTokens, skipped, actualTokens }: {
     return resultText;
 };
 
-const createMessage = ({ id, text, matcherTokens, skipped, actualTokens }: { id: string, text: string, matcherTokens: any[], skipped: boolean[], actualTokens: KuromojiToken[] }) => {
+const createMessage = ({
+    id,
+    text,
+    matcherTokens,
+    skipped,
+    actualTokens
+}: {
+    id: string;
+    text: string;
+    matcherTokens: any[];
+    skipped: boolean[];
+    actualTokens: KuromojiToken[];
+}) => {
     let resultText = text;
     let actualTokenIndex = 0;
     matcherTokens.forEach((token, index) => {
@@ -115,8 +135,8 @@ export interface Options {
     dictOptions?: {
         [index: string]: {
             disabled?: boolean;
-            allows?: string[]
-        }
+            allows?: string[];
+        };
     };
     // - 無視したいNode typeを配列で指定
     // - Node typeは <https://textlint.github.io/docs/txtnode.html#type> を参照
@@ -132,7 +152,7 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
     };
     const dictOptions = options.dictOptions || DefaultOptions.dictOptions;
     // "disabled": trueな辞書は取り除く
-    const enabledDictionaryList = Dictionary.filter(dict => {
+    const enabledDictionaryList = Dictionary.filter((dict) => {
         const dictOption = dictOptions[dict.id] || {};
         const disabled = typeof dictOption.disabled === "boolean" ? dictOption.disabled : dict.disabled;
         return !disabled;
@@ -144,14 +164,14 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
         {
             ignoreNodeTypes: skipNodeTypes
         },
-        report => {
+        (report) => {
             return {
                 [Syntax.Paragraph](node) {
                     const source = new StringSource(node);
                     const text = source.toString();
-                    return tokenize(text).then(currentTokens => {
+                    return tokenize(text).then((currentTokens) => {
                         const matchResults = matchAll(currentTokens);
-                        matchResults.forEach(matchResult => {
+                        matchResults.forEach((matchResult) => {
                             const dictOption = dictOptions[matchResult.dict.id] || {};
                             // "allows" オプションにマッチした場合はエラーを報告しない
                             const allows = dictOption.allows || matchResult.dict.allows;
@@ -162,21 +182,18 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
                             // エラー報告
                             const firstToken = matchResult.tokens[0];
                             const lastToken = matchResult.tokens[matchResult.tokens.length - 1];
-                            const firstWordIndex = source.originalIndexFromIndex(
-                                Math.max(firstToken.word_position - 1, 0)
-                            ) || 0;
-                            const lastWordIndex = source.originalIndexFromIndex(
-                                Math.max(lastToken.word_position - 1, 0)
-                            ) || 0;
+                            const firstWordIndex =
+                                source.originalIndexFromIndex(Math.max(firstToken.word_position - 1, 0)) || 0;
+                            const lastWordIndex =
+                                source.originalIndexFromIndex(Math.max(lastToken.word_position - 1, 0)) || 0;
                             // エラーメッセージ
-                            const message =
-                                createMessage({
-                                    id: matchResult.dict.id,
-                                    text: matchResult.dict.message,
-                                    matcherTokens: matchResult.dict.tokens,
-                                    skipped: matchResult.skipped,
-                                    actualTokens: matchResult.tokens
-                                });
+                            const message = createMessage({
+                                id: matchResult.dict.id,
+                                text: matchResult.dict.message,
+                                matcherTokens: matchResult.dict.tokens,
+                                skipped: matchResult.skipped,
+                                actualTokens: matchResult.tokens
+                            });
                             // 置換結果
                             const expected = createExpected({
                                 expected: matchResult.dict.expected,

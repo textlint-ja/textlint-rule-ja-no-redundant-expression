@@ -40,7 +40,7 @@ const createAllows = (dict: ExpectedDictionary) => {
 };
 const replaceWithCaptureTokens = (text: string, tokens: ExpectedToken[]) => {
     let resultText = text;
-    tokens.forEach(token => {
+    tokens.forEach((token) => {
         // _captureがないのは無視
         if (!token._capture) {
             return;
@@ -48,7 +48,9 @@ const replaceWithCaptureTokens = (text: string, tokens: ExpectedToken[]) => {
         if (token._readme) {
             resultText = resultText.split(token._capture).join(escapeMarkdown(token._readme));
         } else if (token.basic_form) {
-            resultText = resultText.split(token._capture).join(escapeMarkdown(Array.isArray(token.basic_form) ? token.basic_form[0] : token.basic_form));
+            resultText = resultText
+                .split(token._capture)
+                .join(escapeMarkdown(Array.isArray(token.basic_form) ? token.basic_form[0] : token.basic_form));
         } else {
             resultText = resultText.split(token._capture).join("");
         }
@@ -57,7 +59,7 @@ const replaceWithCaptureTokens = (text: string, tokens: ExpectedToken[]) => {
 };
 const createExamples = (dictionaries: ExpectedDictionary[]) => {
     return dictionaries
-        .map(dict => {
+        .map((dict) => {
             return (
                 `### 【${dict.id}】
 
