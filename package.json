@@ -20,7 +20,7 @@
     "build": "textlint-scripts build",
     "watch": "textlint-scripts build --watch",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
-    "prepare": "git config --local core.hooksPath .githook"
+    "prepare": "git config --local core.hooksPath .githooks"
   },
   "repository": {
     "type": "git",
