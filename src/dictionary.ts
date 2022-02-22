@@ -63,7 +63,7 @@ export const Dictionary: ExpectedDictionary[] = [
         id: "dict1",
         disabled: false,
         allows: [],
-        message: `"する$2$3$4$5$1"は冗長な表現です。"する$2$3$4$5"を省き簡潔な表現にすると文章が明瞭になります。`,
+        message: `"する$2$3$4$5$1"は冗長な表現です。"する$2$3$4"を省き簡潔な表現にすると文章が明瞭になります。`,
         url: "http://qiita.com/takahi-i/items/a93dc2ff42af6b93f6e0",
         tokens: [
             {

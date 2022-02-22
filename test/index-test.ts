@@ -56,7 +56,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             },
             errors: [
                 {
-                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 7
                 }
@@ -85,7 +85,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "`code`は省略することが可能だが、省略しない。",
             errors: [
                 {
-                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 9
                 }
@@ -96,7 +96,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することが可能だが、省略しない。",
             errors: [
                 {
-                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することが可能だ"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -106,7 +106,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することが可能です。",
             errors: [
                 {
-                    message: `【dict1】 "することが可能です"は冗長な表現です。"することが可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することが可能です"は冗長な表現です。"することが"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -116,7 +116,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することも可能だ。",
             errors: [
                 {
-                    message: `【dict1】 "することも可能だ"は冗長な表現です。"することも可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することも可能だ"は冗長な表現です。"することも"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -126,7 +126,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略する事は可能だ。",
             errors: [
                 {
-                    message: `【dict1】 "する事は可能だ"は冗長な表現です。"する事は可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "する事は可能だ"は冗長な表現です。"する事は"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -136,7 +136,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは，可能だ。",
             errors: [
                 {
-                    message: `【dict1】 "することは，可能だ"は冗長な表現です。"することは，可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することは，可能だ"は冗長な表現です。"することは，"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -146,7 +146,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは可能だ。",
             errors: [
                 {
-                    message: `【dict1】 "することは可能だ"は冗長な表現です。"することは可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することは可能だ"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
@@ -156,7 +156,7 @@ tester.run("textlint-rule-ja-no-redundant-expression", rule, {
             text: "これは省略することは不可能だ。",
             errors: [
                 {
-                    message: `【dict1】 "することは不可能だ"は冗長な表現です。"することは不可能"を省き簡潔な表現にすると文章が明瞭になります。
+                    message: `【dict1】 "することは不可能だ"は冗長な表現です。"することは"を省き簡潔な表現にすると文章が明瞭になります。
 解説: https://github.com/textlint-ja/textlint-rule-ja-no-redundant-expression#dict1`,
                     index: 5
                 }
