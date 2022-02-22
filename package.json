@@ -58,11 +58,6 @@
     "tabWidth": 4,
     "trailingComma": "none"
   },
-  "husky": {
-    "hooks": {
-      "precommit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css}": [
       "prettier --write"
