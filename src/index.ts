@@ -3,6 +3,7 @@
 import { matchPatterns } from "@textlint/regexp-string-matcher";
 import { wrapReportHandler } from "textlint-rule-helper";
 import { StringSource } from "textlint-util-to-string";
+import type { StringSourceTxtParentNodeLikeNode } from "textlint-util-to-string/src/StringSource";
 import { Dictionary, ExpectedType } from "./dictionary";
 
 import { tokenize, KuromojiToken } from "kuromojin";
@@ -148,7 +149,7 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
     const DefaultOptions = {
         // https://textlint.github.io/docs/txtnode.html#type
         allowNodeTypes: [Syntax.BlockQuote, Syntax.Link, Syntax.ReferenceDef, Syntax.Code],
-        dictOptions: {}
+        dictOptions: {} as NonNullable<Options["dictOptions"]>
     };
     const dictOptions = options.dictOptions || DefaultOptions.dictOptions;
     // "disabled": trueな辞書は取り除く
@@ -167,10 +168,11 @@ const reporter: TextlintRuleModule<Options> = (context, options = {}) => {
         (report) => {
             return {
                 [Syntax.Paragraph](node) {
-                    const source = new StringSource(node);
+                    const source = new StringSource(node as StringSourceTxtParentNodeLikeNode);
                     const text = source.toString();
                     return tokenize(text).then((currentTokens) => {
-                        const matchResults = matchAll(currentTokens);
+                        // Copy the readonly array from kuromojin 3.1 into the mutable array that morpheme-match-all expects
+                        const matchResults = matchAll([...currentTokens]);
                         matchResults.forEach((matchResult) => {
                             const dictOption = dictOptions[matchResult.dict.id] || {};
                             // "allows" オプションにマッチした場合はエラーを報告しない
